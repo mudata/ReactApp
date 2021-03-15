@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-// import items from "./data";
 import Client from "./Contentful";
-
-const RoomContext = React.createContext("");
-// <RoomContext.Provider value={'hello'}
+const RoomContext = React.createContext({});
 class RoomProvider extends Component {
   state = {
     rooms: [],
@@ -20,14 +17,15 @@ class RoomProvider extends Component {
     breakfast: false,
     pets: false
   };
-  // getData
+  //getData
   getData = async () => {
     try {
       let response = await Client.getEntries({
-        content_type: "beachResortRoom",
+        content_type: "beachResortRoomExample",
         // order: "sys.createdAt"
         order: "-fields.price"
       });
+      console.log(response)
       let rooms = this.formatData(response.items);
       let featuredRooms = rooms.filter(room => room.featured === true);
       let maxPrice = Math.max(...rooms.map(item => item.price));
@@ -75,7 +73,7 @@ class RoomProvider extends Component {
       {
         [name]: value
       },
-      this.filterRooms
+      // this.filterRooms
     );
   };
   filterRooms = () => {

@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from "react-router-dom";
 import App from './App';
 import { RoomProvider } from './context';
+import UserProvider from './providers/UserProvider';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-
+<UserProvider>
   <RoomProvider>
   <Router>
     <App />
   </Router>
-</RoomProvider>,
+</RoomProvider>
+</UserProvider>,
 
   document.getElementById('root')
 );

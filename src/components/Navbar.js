@@ -41,6 +41,9 @@ export default class Navbar extends Component {
             <li>
               <Link to="/register">Register</Link>
             </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
           </ul>
         </div>
       </nav>

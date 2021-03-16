@@ -2,8 +2,10 @@ import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
 import { UserContext } from "../providers/UserProvider";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
+    let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -15,6 +17,7 @@ const SignUp = () => {
     try{
       const {user} = await auth.createUserWithEmailAndPassword(email, password);
       generateUserDocument(user, {displayName});
+      history.push("/");
     }
     catch(error){
       setError('Error Signing up with email and password');

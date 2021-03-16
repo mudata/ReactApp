@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from "react-router-dom";
 import App from './App';
-import { RoomProvider } from './context';
+import { RoomProvider } from './providers/context';
 import UserProvider from './providers/UserProvider';
 import reportWebVitals from './reportWebVitals';
 

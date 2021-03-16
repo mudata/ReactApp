@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Client from "./Contentful";
+import Client from "../Contentful";
 const RoomContext = React.createContext({});
 class RoomProvider extends Component {
   state = {

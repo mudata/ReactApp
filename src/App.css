@@ -511,3 +511,8 @@ h6 {
   }
 }
 /* end of rooms fitler*/
+.LoginForm{
+  margin: 0 auto;
+    position: relative;
+    display: table;
+}

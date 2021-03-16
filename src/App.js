@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 
 import Home from "./pages/Home";
@@ -12,8 +12,11 @@ import Navbar from "./components/Navbar";
 import PasswordReset from "./pages/passwordReset";
 import ProfilePage from "./pages/ProfilePage";
 import SignUp from "./pages/register";
+import { UserContext } from "./providers/UserProvider";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
+  const user = useContext(UserContext);
   return (
     <>
       <Navbar />
@@ -22,9 +25,16 @@ function App() {
         <Route exact path="/rooms/" component={Rooms} />
         <Route exact path="/rooms/:slug" component={SingleRoom} />
         <Route exact path="/login" component={Login} />
-        { <Route exact path="/register" component={SignUp} /> }
+        <Route exact path="/register" component={SignUp} /> 
         <Route exact path="/passwordReset" component={PasswordReset} />
-        <Route exact path="/profile" component={ProfilePage} />
+        {/* <Route exact path="/profile" component={ProfilePage} /> */}
+        {/* <PrivateRoute component={ProfilePage} path="/profile" exact /> */}
+
+
+        {user && (
+          <Route exact path="/profile" component={ProfilePage} />
+        )}
+
         <Route component={Error} />
       </Switch>
     </>

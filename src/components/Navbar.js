@@ -1,17 +1,23 @@
-import React, { Component} from "react";
+import React, { Component, useContext} from "react";
 import logo from "../images/logo.svg";
 import { FaAlignRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { UserContext } from "../providers/UserProvider";
+// const user = useContext(UserContext);
 export default class Navbar extends Component {
   
   state = {
-    isOpen: false
+    isOpen: false,
+    loggedIn:false
   };
   handleToggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
+  
+
 
   render() {
+    
     return (
       <nav className="navbar">
         <div className="nav-center">
@@ -36,12 +42,14 @@ export default class Navbar extends Component {
             <li>
               <Link to="/rooms">Rooms</Link>
             </li>
-            <li>
+            <li id="login-class">
               <Link to="/login">Login</Link>
             </li>
-            {<li>
-              <Link to="/register">Register</Link>
-            </li>}
+            
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+      
             
             <li>
               <Link to="/profile">Profile</Link>

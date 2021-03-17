@@ -50,37 +50,37 @@ const SignUp = () => {
             {error}
           </div>
         )}
-        <form className="">
+        <form className="register-form">
           <label htmlFor="displayName" className="block">
-            Display Name:
+            Name:
           </label>
           <input
             type="text"
-            className="my-1 p-1 w-full "
+            className="input"
             name="displayName"
             value={displayName}
-            placeholder="E.g: Faruq"
+            placeholder="Name"
             id="displayName"
             onChange={event => onChangeHandler(event)}
           />
-          <label htmlFor="userEmail" className="block">
+          <label htmlFor="userEmail" className="block2">
             Email:
           </label>
           <input
             type="email"
-            className="my-1 p-1 w-full"
+            className="input"
             name="userEmail"
             value={email}
-            placeholder="E.g: faruq123@gmail.com"
+            placeholder="Email"
             id="userEmail"
             onChange={event => onChangeHandler(event)}
           />
-          <label htmlFor="userPassword" className="block">
+          <label htmlFor="userPassword" className="block3">
             Password:
           </label>
           <input
             type="password"
-            className="mt-1 mb-3 p-1 w-full"
+            className="input"
             name="userPassword"
             value={password}
             placeholder="Your Password"
@@ -88,7 +88,7 @@ const SignUp = () => {
             onChange={event => onChangeHandler(event)}
           />
           <button
-            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
+            className="signup-button"
             onClick={event => {
               createUserWithEmailAndPasswordHandler(event, email, password);
             }}
@@ -105,7 +105,7 @@ const SignUp = () => {
               console.error("Error signing in with Google", error);
             }
           }}
-          className="bg-red-500 hover:bg-red-600 w-full py-2 text-white"
+          className="button-google"
         >
           Sign In with Google
         </button>

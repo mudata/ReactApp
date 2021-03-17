@@ -19,6 +19,7 @@ const SignIn = () => {
             console.log("return");
             // <Redirect push to="/" />
             localStorage.setItem("id","01010110");
+
             history.push("/");
         })
         .catch(error => {
@@ -46,38 +47,38 @@ const SignIn = () => {
       <h1 className="">Sign In</h1>
       <div className="">
         {error !== null && <div className = "">{error}</div>}
-        <form className="">
-          <label htmlFor="userEmail" className="block">
+        <form className="loginF">
+          <label htmlFor="userEmail" className="block4">
             Email:
           </label>
           <input
             type="email"
-            className=""
+            className="input"
             name="userEmail"
             value = {email}
-            placeholder="E.g: faruq123@gmail.com"
+            placeholder="Your Email"
             id="userEmail"
             onChange = {(event) => onChangeHandler(event)}
           />
-          <label htmlFor="userPassword" className="block">
+          <label htmlFor="userPassword" className="block5">
             Password:
           </label>
           <input
             type="password"
-            className=""
+            className="input"
             name="userPassword"
             value = {password}
             placeholder="Your Password"
             id="userPassword"
             onChange = {(event) => onChangeHandler(event)}
           />
-          <button className="" onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}>
+          <button className="signin-button" onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}>
             Sign in
           </button>
         </form>
         <p className="text-center my-3">or</p>
         <button
-          className=""
+          className="button-google"
           onClick={() => {
             signInWithGoogle();
           }}

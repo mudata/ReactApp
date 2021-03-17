@@ -511,8 +511,109 @@ h6 {
   }
 }
 /* end of rooms fitler*/
+/* Login */
 .LoginForm{
-  margin: 0 auto;
-    position: relative;
-    display: table;
+  text-align: center;
+  background-color: #F7F7F7;
+  padding: 40px;
+  height: auto;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 100px;
 }
+.text-center my-3{
+display: table;
+}
+.loginF{
+  display: inline-grid;
+  position: relative;
+    font-size: 12px;
+    padding: 10px;
+}
+.button-google{
+  margin-bottom: 20px;
+  margin-top: 10px;
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  color: var(--mainBlack);
+  background: var(--primaryColor);
+  padding: 0.4rem 0.9rem;
+  border: 3px solid var(--primaryColor);
+  transition: var(--mainTransition);
+  /* text-transform: uppercase; */
+  cursor: pointer;
+}
+.block4{
+  left: -106px;
+    position: relative;
+    padding-top: 10px;
+}
+.block5{
+  left: -94px;
+    position: relative;
+    padding-top: 10px;
+}
+.signin-button{
+  text-decoration: none;
+      letter-spacing: var(--mainSpacing);
+      color: var(--mainBlack);
+      background: var(--primaryColor);
+      padding: 0.4rem 0.9rem;
+      border: 3px solid var(--primaryColor);
+      transition: var(--mainTransition);
+      /* text-transform: uppercase; */
+      cursor: pointer;
+      width: fit-content;
+      margin: 0 auto;
+      margin-top: 20px;
+}
+/* Register */
+.mt-8{
+  text-align: center;
+  background-color: #F7F7F7;
+  padding: 40px;
+  height: auto;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.register-form{
+  display: inline-grid;
+  position: relative;
+    font-size: 12px;
+    padding: 10px;
+}
+.block{
+  left: -104px;
+    position: relative;
+  
+}
+.block2{
+  left: -106px;
+    position: relative;
+    padding-top: 10px;
+}
+.block3{
+  left: -94px;
+    position: relative;
+    padding-top: 10px;
+}
+.signup-button{
+      text-decoration: none;
+      letter-spacing: var(--mainSpacing);
+      color: var(--mainBlack);
+      background: var(--primaryColor);
+      padding: 0.4rem 0.9rem;
+      border: 3px solid var(--primaryColor);
+      transition: var(--mainTransition);
+      /* text-transform: uppercase; */
+      cursor: pointer;
+      width: fit-content;
+      margin: 0 auto;
+      margin-top: 20px;
+}
+.input{
+  height: 25px;
+  width: 250px;
+}
+

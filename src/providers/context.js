@@ -20,13 +20,29 @@ class RoomProvider extends Component {
   //getData
   getData = async () => {
     try {
-      let response = await Client.getEntries({
-        content_type: "beachResortRoomExample",
-        // order: "sys.createdAt"
-        order: "-fields.price"
-      });
-      console.log(response)
-      let rooms = this.formatData(response.items);
+      // let response = await Client.getEntries({
+      //   content_type: "beachResortRoomExample",
+      //   // order: "sys.createdAt"
+      //   order: "-fields.price"
+      // });
+
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+
+      
+        await fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOptions)
+        .then((response) => response.json()) //2
+        .then((result) => {
+          let arr=[];
+          for (const key in result) {
+            result[key].fields.id2=key
+            // console.log(result[key])
+            arr.push(result[key])
+          }
+          let rooms = this.formatData(arr);
+      // console.log(response.items)
       let featuredRooms = rooms.filter(room => room.featured === true);
       let maxPrice = Math.max(...rooms.map(item => item.price));
       let maxSize = Math.max(...rooms.map(item => item.size));
@@ -40,6 +56,9 @@ class RoomProvider extends Component {
         maxPrice,
         maxSize
       });
+        });
+
+      
     } catch (error) {
       console.log(error);
     }
@@ -51,18 +70,37 @@ class RoomProvider extends Component {
 
   formatData(items) {
     let tempItems = items.map(item => {
+      console.log(item)
       let id = item.sys.id;
       let images = item.fields.images.map(image => image.fields.file.url);
 
       let room = { ...item.fields, images, id };
       return room;
     });
+    
     return tempItems;
   }
-  getRoom = slug => {
+  getRoom = (slug)=> {
+    // var requestOptions = {
+    //   method: 'GET',
+    //   redirect: 'follow'
+    // };
+
+    // return fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${slug}.json`, requestOptions)
+    // .then((response) => response.json()) //2
+    // .then((room) => {
+    //   let arr=[];
+    //   arr.push(room)
+    //   return arr;
+    // });
     let tempRooms = [...this.state.rooms];
-    const room = tempRooms.find(room => room.slug === slug);
+    console.log(tempRooms)
+    const room = tempRooms.find(room => room.id2 === slug);
+
     return room;
+
+
+    // return room;
   };
   handleChange = event => {
     const target = event.target;
@@ -140,6 +178,7 @@ const RoomConsumer = RoomContext.Consumer;
 
 export function withRoomConsumer(Component) {
   return function ConsumerWrapper(props) {
+    // console.log(...props)
     return (
       <RoomConsumer>
         {value => <Component {...props} context={value} />}

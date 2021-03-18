@@ -9,17 +9,20 @@ import StyledHero from "../components/StyledHero";
 export default class SingleRoom extends Component {
   constructor(props) {
     super(props);
-    // console.log(this.props);
+    console.log(this.props);
     this.state = {
-      slug: this.props.match.params.slug,
-      defaultBcg
+      slug: this.props.match.params.id2,
+      defaultBcg,
     };
   }
   static contextType = RoomContext;
   // componentDidMount() {}
+  
   render() {
     const { getRoom } = this.context;
-    const room = getRoom(this.state.slug);
+
+    const room =getRoom(this.state.slug)
+
     if (!room) {
       return (
         <div className="error">
@@ -41,11 +44,13 @@ export default class SingleRoom extends Component {
       pets,
       images
     } = room;
+    console.log(room)
+    console.log(extras)
     const [mainImg, ...defaultImg] = images;
 
     return (
       <>
-        <StyledHero img={mainImg || this.state.defaultBcg}>
+        <StyledHero img={mainImg}>
           <Banner title={`${name} room`}>
             <Link to="/rooms" className="btn-primary">
               back to rooms

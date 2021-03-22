@@ -12,13 +12,12 @@ const ProfilePage = () => {
 // const photoURL=user.photoURL||null;
 // const displayName=user.displayName
 // const email=user.email;
-let history = useHistory();
   return (
     <div className = "mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">
-      {/* <div className="flex border flex-col items-center md:flex-row md:items-start border-blue-400 px-3 py-4">
+      {<div className="flex border flex-col items-center md:flex-row md:items-start border-blue-400 px-3 py-4">
         <div
           style={{
-            background: `url(${user.user.photoURL || 'https://res.cloudinary.com/dqcsk8rsc/image/upload/v1577268053/avatar-1-bitmoji_upgwhc.png'})  no-repeat center center`,
+            background: `url(${user.photoURL || 'https://res.cloudinary.com/dqcsk8rsc/image/upload/v1577268053/avatar-1-bitmoji_upgwhc.png'})  no-repeat center center`,
             backgroundSize: "cover",
             height: "200px",
             width: "200px"
@@ -26,17 +25,11 @@ let history = useHistory();
           className=""
         ></div>
         <div className = "">
-        <h2 className = "">{user.user.displayName}||""</h2>
-        <h3 className = "">{user.user.email}||""</h3>
+        <h2 className = "">{user.displayName||""}</h2>
+        <h3 className = "">{user.email||""}</h3>
         </div>
-      </div>*/
-      <button className = "" onClick = {() => {
-        
-          auth.signOut();
-          removeCookie('cookie');
-          
-          history.push("/");
-          }}>Sign out</button> }
+      </div>
+      }
     </div>
     
   ) 

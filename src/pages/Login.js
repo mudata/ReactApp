@@ -22,8 +22,9 @@ const SignIn = () => {
             setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
             const data = getCookie('cookie');
             console.log(data);
-
+            
             history.push("/");
+            window.location.reload();
         })
         .catch(error => {
         setError("Error signing in with password and email!");

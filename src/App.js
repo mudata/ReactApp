@@ -14,9 +14,10 @@ import ProfilePage from "./pages/ProfilePage";
 import SignUp from "./pages/register";
 import { UserContext } from "./providers/UserProvider";
 import PrivateRoute from "./components/PrivateRoute";
-
+import {getCookie} from "./source"
 function App() {
   const user = useContext(UserContext);
+  
   return (
     <>
       <Navbar />

@@ -2,18 +2,19 @@ import React, { Component} from "react";
 import logo from "../images/logo.svg";
 import { FaAlignRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import { getCookie } from "../source";
 export default class Navbar extends Component {
   
   state = {
     isOpen: false,
+    
   };
   handleToggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
   
-
-
+  
+  
   render() {
     
     return (
@@ -48,10 +49,12 @@ export default class Navbar extends Component {
             <Link to="/register">Register</Link>
           </li>
       
-            
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
+          {/* {this.state.user && ( */}
+          <li >
+          <Link to="/profile">Profile</Link>
+        </li>
+        {/* )} */}
+        {/* hidden={getCookie('cookie')} */}
             
           </ul>
         </div>

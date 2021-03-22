@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { UserContext } from "../providers/UserProvider";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import {auth, firestore} from "../firebase";
+import { getAllCookies, getCookie, removeCookie, setCookie } from '../source'
+
 const ProfilePage = () => {
   const user = useContext(UserContext);
   console.log(user);
@@ -31,7 +33,8 @@ let history = useHistory();
       <button className = "" onClick = {() => {
         
           auth.signOut();
-          localStorage.removeItem("id");
+          removeCookie('cookie');
+          
           history.push("/");
           }}>Sign out</button> }
     </div>

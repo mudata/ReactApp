@@ -1,13 +1,16 @@
 import React, {useState} from "react";
-import { BrowserRouter, Router } from "react-router-dom";
+import { getAllCookies, getCookie, removeCookie, setCookie } from '../source'
+
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom";
+
 import {
     Link,
     Redirect,
   } from '@dollarshaveclub/react-passage'
 const SignIn = () => {
+  
     let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,9 +19,9 @@ const SignIn = () => {
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
         auth.signInWithEmailAndPassword(email, password).then(()=>{
-            console.log("return");
-            // <Redirect push to="/" />
-            localStorage.setItem("id","01010110");
+            setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
+            const data = getCookie('cookie');
+            console.log(data);
 
             history.push("/");
         })
@@ -101,3 +104,5 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+

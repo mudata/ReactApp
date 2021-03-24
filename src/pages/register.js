@@ -9,6 +9,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
   const user = useContext(UserContext);
   console.log(user)
@@ -16,7 +17,7 @@ const SignUp = () => {
     event.preventDefault();
     try{
       const {user} = await auth.createUserWithEmailAndPassword(email, password);
-      generateUserDocument(user, {displayName});
+      generateUserDocument(user, {displayName,rooms});
       history.push("/");
     }
     catch(error){
@@ -27,6 +28,7 @@ const SignUp = () => {
     setEmail("");
     setPassword("");
     setDisplayName("");
+    setRooms([]);
   };
 
   const onChangeHandler = event => {

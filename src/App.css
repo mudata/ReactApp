@@ -616,4 +616,20 @@ display: table;
   height: 25px;
   width: 250px;
 }
+.favorite-botton{
+  margin: 0 auto;
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+  margin-top: 10px;
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  color: var(--mainBlack);
+  background: var(--primaryColor);
+  padding: 0.4rem 0.9rem;
+  border: 3px solid var(--primaryColor);
+  transition: var(--mainTransition);
+  /* text-transform: uppercase; */
+  cursor: pointer;
+}
 

@@ -28,12 +28,15 @@ export const generateUserDocument = async (user, additionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { email, displayName, photoURL } = user;
+    const { email, displayName, photoURL,rooms } = user;
+    console.log(user);
+    console.log(additionalData)
     try {
       await userRef.set({
         displayName,
         email,
         photoURL,
+        rooms,
         ...additionalData
       });
     } catch (error) {
@@ -43,7 +46,7 @@ export const generateUserDocument = async (user, additionalData) => {
   return getUserDocument(user.uid);
 };
 
-const getUserDocument = async uid => {
+export const getUserDocument = async uid => {
   if (!uid) return null;
   try {
     const userDocument = await firestore.doc(`users/${uid}`).get();

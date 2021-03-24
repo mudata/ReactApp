@@ -99,8 +99,9 @@ class RoomProvider extends Component {
     return room;
 
 
-    // return room;
   };
+  
+  
   handleChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -191,4 +192,4 @@ export function withRoomConsumer(Component) {
   };
 }
 
-export { RoomProvider, RoomConsumer, RoomContext };
+export { RoomProvider, RoomConsumer, RoomContext  };

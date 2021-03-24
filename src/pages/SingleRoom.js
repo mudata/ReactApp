@@ -1,10 +1,16 @@
-import React, { Component } from "react";
+import React, { Component,useContext } from "react";
+import { UserContext } from "../providers/UserProvider";
 import defaultBcg from "../images/room-1.jpeg";
 import Hero from "../components/Hero";
 import Banner from "../components/Banner";
 import { Link } from "react-router-dom";
-import { RoomContext } from "../providers/context";
+import { RoomContext} from "../providers/context";
 import StyledHero from "../components/StyledHero";
+import "firebase/firestore";
+import firebase from "firebase/app";
+import { getCookie } from "../source";
+import { generateUserDocument} from "../firebase";
+import { auth } from "../firebase";
 
 export default class SingleRoom extends Component {
   constructor(props) {
@@ -16,13 +22,47 @@ export default class SingleRoom extends Component {
     };
   }
   static contextType = RoomContext;
+  // static useContext = UserContext;
   // componentDidMount() {}
-  
+  addToFavorite(){
+    
+    const { getRoom } = this.context;
+//room
+    const room =getRoom(this.state.slug);
+    console.log(room);
+    auth.onAuthStateChanged(async userAuth => {
+      //user
+      const user = await generateUserDocument(userAuth,[]);
+      console.log(user);
+      const obj= {
+        "name" : user.uid
+      };
+      var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify(obj);
+
+var requestOptions = {
+  method: 'PATCH',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user.uid}.json`, requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+    });
+    
+   }
   render() {
     const { getRoom } = this.context;
 
     const room =getRoom(this.state.slug)
 
+
+    
     if (!room) {
       return (
         <div className="error">
@@ -48,6 +88,8 @@ export default class SingleRoom extends Component {
     console.log(extras)
     const [mainImg, ...defaultImg] = images;
 
+
+    
     return (
       <>
         <StyledHero img={mainImg}>
@@ -89,6 +131,15 @@ export default class SingleRoom extends Component {
             })}
           </ul>
         </section>
+        <button
+          className="favorite-botton"
+          onClick={() => {
+            this.addToFavorite();
+            
+          }}
+        >
+          Add to Favorite
+        </button>
       </>
     );
   }

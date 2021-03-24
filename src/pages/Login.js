@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState ,useContext} from "react";
 import { getAllCookies, getCookie, removeCookie, setCookie } from '../source'
-
+import { UserContext } from "../providers/UserProvider";
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom";
@@ -15,13 +15,12 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
         auth.signInWithEmailAndPassword(email, password).then(()=>{
             setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
             const data = getCookie('cookie');
-            console.log(data);
+            
             
             history.push("/");
             window.location.reload();

@@ -4,6 +4,7 @@ import { FaAlignRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getCookie, removeCookie } from "../source";
 import {auth, firestore} from "../firebase";
+import { useHistory } from "react-router-dom";
 export default class Navbar extends Component {
   
   state = {
@@ -14,11 +15,15 @@ export default class Navbar extends Component {
     this.setState({ isOpen: !this.state.isOpen });
     console.log(this.state)
   };
-  LogOut(){
+  async LogOut(){
+    // let history = useHistory();
     auth.signOut();
-    removeCookie('cookie');
-    window.location.reload();  
-    // console.log(this.state)
+    await removeCookie('cookie');
+    await removeCookie('cookie2');
+    window.location.reload(); 
+    // history.push("/"); 
+    // console.log(this.state);
+    
   }
   render() {
     return (
@@ -45,6 +50,9 @@ export default class Navbar extends Component {
             <li>
               <Link to="/rooms">Rooms</Link>
             </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
             {!this.state.cookie && (
             <li>
               <Link to="/login">SignIn</Link>
@@ -55,12 +63,12 @@ export default class Navbar extends Component {
               <Link to="/register">SingUp</Link>
             </li>
             )}
-            {!!this.state.cookie && (
+            {this.state.cookie && (
       <li>
               <Link to="/profile">Profile</Link>
             </li>
 )}
-            {!!this.state.cookie && (
+            {this.state.cookie && (
       <li>
         <Link to="/" onClick={this.LogOut}>LogOut</Link>
       </li>

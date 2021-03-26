@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { RoomContext } from "../providers/context";
 import Title from "../components/Title";
 // get all unique values
-const getUnique = (items, value) => {
+const getUnique = (items: any[], value: string) => {
   return [...new Set(items.map(item => item[value]))];
 };
 export default function RoomFilter({ rooms }) {

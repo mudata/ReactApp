@@ -1,7 +1,8 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-
+import { getAllCookies, getCookie, removeCookie, setCookie } from './source'
+import { useHistory } from "react-router-dom";
 const firebaseConfig = {
     apiKey: "AIzaSyD8MPcM4votQ1mr8DYG0HT4Gh5VgRtx6uM",
     authDomain: "reactapp-248b5.firebaseapp.com",
@@ -18,7 +19,14 @@ export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider);
+  // let history = useHistory();
+  setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
+  auth.signInWithPopup(provider).then(()=>{
+    window.location.reload(); 
+  });
+  
+  // history.push("/");
+  
 };
 
 export const generateUserDocument = async (user, additionalData) => {

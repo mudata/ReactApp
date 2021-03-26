@@ -84,6 +84,8 @@ const SignIn = () => {
           className="button-google"
           onClick={() => {
             signInWithGoogle();
+            history.push("/");
+            // window.location.reload();
           }}
         >
           Sign in with Google

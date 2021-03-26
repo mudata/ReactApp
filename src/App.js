@@ -15,6 +15,8 @@ import SignUp from "./pages/register";
 import { UserContext } from "./providers/UserProvider";
 import PrivateRoute from "./components/PrivateRoute";
 import {getCookie} from "./source"
+import Footer from "./components/Footer";
+import About from "./pages/About";
 function App() {
   const user = useContext(UserContext);
   
@@ -28,6 +30,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={SignUp} /> 
         <Route exact path="/passwordReset" component={PasswordReset} />
+        <Route exact path="/about" component={About} />
         {/* <Route exact path="/profile" component={ProfilePage} /> */}
         {/* <PrivateRoute component={ProfilePage} path="/profile" exact /> */}
 
@@ -38,8 +41,12 @@ function App() {
 
         <Route component={Error} />
       </Switch>
+      <Footer />
     </>
   );
 }
 
 export default App;
+
+
+

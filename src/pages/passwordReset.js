@@ -7,7 +7,7 @@ const PasswordReset = () => {
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event: { currentTarget: { name: any; value: any; }; }) => {
     const { name, value } = event.currentTarget;
 
     if (name === "userEmail") {
@@ -15,7 +15,7 @@ const PasswordReset = () => {
     }
   };
 
-  const sendResetEmail = event => {
+  const sendResetEmail = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     auth
       .sendPasswordResetEmail(email)
@@ -67,7 +67,7 @@ const PasswordReset = () => {
         </form>
 
         <Link
-          to="/"
+          to="/login"
           className="my-2 text-blue-700 hover:text-blue-800 text-center block"
         >
           &larr; back to sign in page

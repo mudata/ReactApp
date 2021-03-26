@@ -632,4 +632,46 @@ display: table;
   /* text-transform: uppercase; */
   cursor: pointer;
 }
+.profile{
+  margin: 0 auto;
+    position: relative;
+    display: table;
+    margin-top: 30px;
+}
+.profile-img{
+  margin: 0 auto
+}
+.user-info{
+  text-align: center;
+    font-size: 12px;
+}
+.no-rooms{
+  text-align: center;
+  text-transform: capitalize;
+  margin: 2rem 0;
+  padding: 1rem;
+  letter-spacing: var(--mainSpacing);
+  position: absolute;
+}
+
+.col-about {
+  min-width: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 927px;
+}
+.footer-container {
+  margin-top: 20px;
+  height: fit-content;
+  min-width: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px 10px 30px;
+  flex-wrap: wrap;
+
+}
+.copyright {
+  color: transparent;
+}
 

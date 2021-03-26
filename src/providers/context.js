@@ -19,11 +19,6 @@ class RoomProvider extends Component {
   //getData
   getData = async () => {
     try {
-      // let response = await Client.getEntries({
-      //   content_type: "beachResortRoomExample",
-      //   // order: "sys.createdAt"
-      //   order: "-fields.price"
-      // });
 
       var requestOptions = {
         method: 'GET',
@@ -80,18 +75,7 @@ class RoomProvider extends Component {
     return tempItems;
   }
   getRoom = (slug)=> {
-    // var requestOptions = {
-    //   method: 'GET',
-    //   redirect: 'follow'
-    // };
-
-    // return fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${slug}.json`, requestOptions)
-    // .then((response) => response.json()) //2
-    // .then((room) => {
-    //   let arr=[];
-    //   arr.push(room)
-    //   return arr;
-    // });
+    
     let tempRooms = [...this.state.rooms];
     
     const room = tempRooms.find(room => room.id2 === slug);

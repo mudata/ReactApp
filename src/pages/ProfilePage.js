@@ -12,6 +12,7 @@ function ProfilePage({ context }) {
   const { loading, sortedRooms, rooms } = context;
   console.log(rooms);
 
+  
   const user = useContext(UserContext);
   console.log(user)
   let favoriteRomms: any[] = [];
@@ -32,6 +33,7 @@ function ProfilePage({ context }) {
     
   });
   return (
+    
     <div className="mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">
       <div className="profile">
         <div

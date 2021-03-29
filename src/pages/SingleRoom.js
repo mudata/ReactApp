@@ -11,6 +11,7 @@ import firebase from "firebase/app";
 import { getCookie } from "../source";
 import { generateUserDocument} from "../firebase";
 import { auth } from "../firebase";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
 
 export default class SingleRoom extends Component {
   constructor(props) {
@@ -23,7 +24,11 @@ export default class SingleRoom extends Component {
   }
   static contextType = RoomContext;
   // static useContext = UserContext;
+  isOnline= false;
+
   
+    
+
   addToFavorite(){
     
     const { getRoom } = this.context;
@@ -53,9 +58,15 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
   .then(response => response.text())
   .then(result => {
     //componentDidMount()
-    window.location.reload();
+    ToastsStore.success("Hey, you just add this room to your favorites")
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
+    //
     console.log(result)})
-  .catch(error => console.log('error', error));
+  .catch(error => {
+    // addError(`LOAD_DATA_ERROR: ${error}`, error);
+    console.log('error', error)});
     });
     //componentDidMount() {}
     
@@ -96,6 +107,7 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
     
     return (
       <>
+      <ToastsContainer store={ToastsStore}/> 
         <StyledHero img={mainImg}>
           <Banner title={`${name} room`}>
             <Link to="/rooms" className="btn-primary">
@@ -146,7 +158,10 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
            Add to Favorite
          </button>
             )}
-        
+         <div>
+      
+        {/* <ToastsContainer store={ToastsStore}/> */}
+    </div>
       </>
     );
   }

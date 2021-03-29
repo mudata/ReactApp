@@ -1,5 +1,5 @@
 import React, {useState ,useContext} from "react";
-import { getAllCookies, getCookie, removeCookie, setCookie } from '../source'
+import { getCookie, removeCookie, setCookie } from '../source'
 import { UserContext } from "../providers/UserProvider";
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
@@ -15,7 +15,7 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const signInWithEmailAndPasswordHandler = (event,email, password) => {
+    const signInWithEmailAndPasswordHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>,email: string, password: string) => {
         event.preventDefault();
         auth.signInWithEmailAndPassword(email, password).then(()=>{
             setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
@@ -32,7 +32,7 @@ const SignIn = () => {
         
       };
       
-      const onChangeHandler = (event) => {
+      const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
           const {name, value} = event.currentTarget;
         
           if(name === 'userEmail') {

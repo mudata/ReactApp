@@ -23,7 +23,7 @@ export default class SingleRoom extends Component {
   }
   static contextType = RoomContext;
   // static useContext = UserContext;
-  // componentDidMount() {}
+  
   addToFavorite(){
     
     const { getRoom } = this.context;
@@ -51,9 +51,13 @@ var requestOptions = {
 
 fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user.uid}.json`, requestOptions)
   .then(response => response.text())
-  .then(result => console.log(result))
+  .then(result => {
+    //componentDidMount()
+    window.location.reload();
+    console.log(result)})
   .catch(error => console.log('error', error));
     });
+    //componentDidMount() {}
     
    }
   render() {
@@ -131,15 +135,18 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
             })}
           </ul>
         </section>
-        <button
-          className="favorite-botton"
-          onClick={() => {
-            this.addToFavorite();
-            
-          }}
-        >
-          Add to Favorite
-        </button>
+        {getCookie("cookie") && (
+           <button
+           className="favorite-botton"
+           onClick={() => {
+             this.addToFavorite();
+             
+           }}
+         >
+           Add to Favorite
+         </button>
+            )}
+        
       </>
     );
   }

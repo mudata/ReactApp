@@ -8,13 +8,14 @@ import Loading from "../components/Loading";
 import Room from "../components/Room";
 import { auth, generateUserDocument } from "../firebase";
 function ProfilePage({ context }) {
+  
   const { loading, sortedRooms, rooms } = context;
   console.log(rooms);
 
   const user = useContext(UserContext);
   console.log(user)
-  let favoriteRomms = [];
-  rooms.forEach(element => {
+  let favoriteRomms: any[] = [];
+  rooms.forEach((element: { hasOwnProperty: (arg0: string) => any; users: { [x: string]: { name: any; }; name: any; }; fields: any; }) => {
     if (element.hasOwnProperty("users")) {
       console.log(element);
       console.log("ima property")
@@ -28,7 +29,7 @@ function ProfilePage({ context }) {
       }
     }
     console.log(favoriteRomms)
-
+    
   });
   return (
     <div className="mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">

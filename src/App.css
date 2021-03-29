@@ -64,6 +64,7 @@ h6 {
   transition: var(--mainTransition);
   text-transform: uppercase;
   cursor: pointer;
+  margin: 0 auto;
 }
 .btn-primary:hover {
   background: transparent;
@@ -235,6 +236,7 @@ h6 {
 .services {
   background: var(--darkGrey);
   text-align: center;
+  margin-bottom: 30px;
 }
 .services-center {
   width: 90vw;
@@ -674,4 +676,40 @@ display: table;
 .copyright {
   color: transparent;
 }
+.about{
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  }
+.about h2{
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+}
+.info-about{
+  display: flex;
+  text-align: center;
+
+  margin: 30px;
+  }
+  .about div img{
+    /* min-height: 400px; */
+    height: 400px;
+    /* min-width: 400px; */
+    width: 600px;
+    }
+    .about div article{
+      margin-left: 50px;
+      margin-right: 50px;
+      }
+      .reserve-botton{
+        position: relative;
+    display: flex;
+margin: 0 auto;
+      }
+      .reserve-botton link{
+        text-decoration: none;
+      }
+
+
 

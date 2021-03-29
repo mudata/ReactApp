@@ -6,7 +6,7 @@ import SimpleReactFooter from "simple-react-footer";
 export default class Footer extends Component {
   
 render() {
-  const description = "According to wikipedia, the cat (Felis catus) is a domestic species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it from the wild members of the family. A cat can either be a house cat, a farm cat or a feral cat; the latter ranges freely and avoids human contact.";
+  const description = " Beach Resort is a full service holiday lodging facility, located at the seaside, with access to a private beach. The beach being the primary focus for tourists. A Beach Resort offers a wide range of services and amenities and typically includes entertainment and recreational activities.";
   const title = "Beach Resort";
   const columns = [
     {

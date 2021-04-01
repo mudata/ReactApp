@@ -29,7 +29,7 @@ export default class SingleRoom extends Component {
   
     
 
-  addToFavorite(){
+ async addToFavorite(){
     
     const { getRoom } = this.context;
 //room
@@ -42,6 +42,26 @@ export default class SingleRoom extends Component {
       const obj= {
         "name" : user.uid
       };
+      
+
+
+
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+await fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user.uid}.json`, requestOptions)
+  .then(response => response.text())
+  .then(result => {
+    if(result){
+      ToastsStore.success("Hey, you have this room to your favorites")
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
+    return;
+    }
+    else{
       var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
@@ -57,16 +77,40 @@ var requestOptions = {
 fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user.uid}.json`, requestOptions)
   .then(response => response.text())
   .then(result => {
+    console.log(result)
     //componentDidMount()
     ToastsStore.success("Hey, you just add this room to your favorites")
     setTimeout(() => {
       window.location.reload();
     }, 2500);
+    return;
     //
-    console.log(result)})
+    })
   .catch(error => {
     // addError(`LOAD_DATA_ERROR: ${error}`, error);
-    console.log('error', error)});
+    console.log('error', error)
+    ToastsStore.error(`error`)
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
+  });
+    
+    }
+  })
+  .catch(error => console.log('error', error));
+
+
+
+
+
+
+
+
+
+
+
+
+      
     });
     //componentDidMount() {}
     
@@ -107,7 +151,7 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
     
     return (
       <>
-      <ToastsContainer store={ToastsStore}/> 
+      {/* <ToastsContainer store={ToastsStore}/>  */}
         <StyledHero img={mainImg}>
           <Banner title={`${name} room`}>
             <Link to="/rooms" className="btn-primary">
@@ -118,7 +162,8 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
         <section className="single-room">
           <div className="single-room-images">
             {defaultImg.map((item, index) => {
-              return <img key={index} src={item} alt={name} />;
+              // return <img key={index} src={item} alt={name} />;
+             return <img src="https://pix10.agoda.net/hotelImages/487/487386/487386_13090617190014898442.jpg?s=1024x768" alt="single room" />
             })}
           </div>
           <div className="single-room-info">
@@ -160,7 +205,7 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
             )}
          <div>
       
-        {/* <ToastsContainer store={ToastsStore}/> */}
+        {<ToastsContainer store={ToastsStore}/> }
     </div>
       </>
     );

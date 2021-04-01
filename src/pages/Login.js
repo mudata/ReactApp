@@ -1,38 +1,69 @@
 import React, {useState ,useContext} from "react";
 import { getCookie, removeCookie, setCookie } from '../source'
-import { UserContext } from "../providers/UserProvider";
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom";
-
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import {getUserDocument} from "../firebase" 
 import {
     Link,
     Redirect,
   } from '@dollarshaveclub/react-passage'
 const SignIn = () => {
   
+  const firestore = firebase.firestore();
     let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const signInWithEmailAndPasswordHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>,email: string, password: string) => {
-        event.preventDefault();
-        auth.signInWithEmailAndPassword(email, password).then(()=>{
+    const signInWithEmailAndPasswordHandler = (email, password) => {
+        
+      auth.signInWithEmailAndPassword(email, password).then( (result)=>{
+        console.log(result.user.uid)
+          const userDocument =  getUserDocument(result.user.uid)
+userDocument.then((result2)=>{
+console.log(result2)
+if(result2.role){
+  setCookie('cookie2', `${result2.role}`);
+  return;
+}
+else{
+  setCookie('cookie2', `viewer`);
+}
+
+//admin role
+            // setCookie('cookie2', `${}`);
+})
+
+          
+          
+
+
+
+
             setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
-            const data = getCookie('cookie');
             
-            
-            history.push("/");
+            ToastsStore.success("You have successfully Sign In")
+            setTimeout(() => {
+              history.push("/");
             window.location.reload();
+            }, 2500);
+            
         })
         .catch(error => {
+          ToastsStore.error("Error signing in with password and email")
         setError("Error signing in with password and email!");
           console.error("Error signing in with password and email", error);
+          
+            
         });
         
       };
       
-      const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const onChangeHandler = (event) => {
           const {name, value} = event.currentTarget;
         
           if(name === 'userEmail') {
@@ -47,6 +78,7 @@ const SignIn = () => {
 
   return (
     <div className="LoginForm">
+      <ToastsContainer store={ToastsStore}/> 
       <h1 className="">Sign In</h1>
       <div className="">
         {error !== null && <div className = "">{error}</div>}

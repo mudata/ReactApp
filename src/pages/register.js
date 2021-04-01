@@ -3,9 +3,10 @@ import { Link, Redirect } from "react-router-dom";
 import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
 import { UserContext } from "../providers/UserProvider";
 import { useHistory } from "react-router-dom";
+import { ToastsContainer, ToastsStore } from 'react-toasts';
 
 const SignUp = () => {
-    let history = useHistory();
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -14,17 +15,28 @@ const SignUp = () => {
   const user = useContext(UserContext);
   console.log(user)
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
+
     event.preventDefault();
-    try{
-      const {user} = await auth.createUserWithEmailAndPassword(email, password);
-      generateUserDocument(user, {displayName,rooms});
-      history.push("/");
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(email, password).then(() => {
+        ToastsStore.success("You have successfully Registered");
+        setTimeout(() => {
+          history.push("/");
+        }, 2500);
+        generateUserDocument(user, { displayName, rooms })
+      });;
+
     }
-    catch(error){
-      setError('Error Signing up with email and password');
-      
+    catch (error) {
+      //ToastsStore.error("Error signing up with password and email")
+
+      setTimeout(() => {
+        setError('Error Signing up with email and password');
+      }, 2000);
+
+
     }
-      
+
     setEmail("");
     setPassword("");
     setDisplayName("");
@@ -45,6 +57,7 @@ const SignUp = () => {
 
   return (
     <div className="mt-8">
+
       <h1 className="text-3xl mb-2 text-center font-bold">Sign Up</h1>
       <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
         {error !== null && (
@@ -118,6 +131,7 @@ const SignUp = () => {
           </Link>{" "}
         </p>
       </div>
+      <ToastsContainer store={ToastsStore} />
     </div>
   );
 };

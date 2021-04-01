@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import { getCookie, removeCookie } from "../source";
 import {auth, firestore} from "../firebase";
 import { useHistory } from "react-router-dom";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+
 export default class Navbar extends Component {
   
   state = {
     isOpen: false,
-    cookie:getCookie("cookie")
+    cookie:getCookie("cookie"),
+    cookie2:getCookie("cookie2"),
   };
   handleToggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -17,10 +20,18 @@ export default class Navbar extends Component {
   };
   async LogOut(){
     // let history = useHistory();
-    auth.signOut();
-    await removeCookie('cookie');
-    await removeCookie('cookie2');
-    window.location.reload(); 
+    auth.signOut().then(()=>{
+      ToastsStore.success("You have successfully Logged Out");
+      setTimeout(() => {
+        removeCookie('cookie');
+      removeCookie('cookie2');
+      window.location.reload(); 
+      }, 2500);
+      
+    }).catch(()=>{
+      ToastsStore.error("cant log out")
+    });
+   
     // history.push("/"); 
     // console.log(this.state);
     
@@ -28,6 +39,7 @@ export default class Navbar extends Component {
   render() {
     return (
       <nav className="navbar">
+        <ToastsContainer store={ToastsStore}/> 
         <div className="nav-center">
           <div className="nav-header">
             <Link to="/" onClick={this.handleToggle}>
@@ -68,6 +80,11 @@ export default class Navbar extends Component {
               <Link to="/profile">Profile</Link>
             </li>
 )}
+{this.state.cookie2 && (
+            <li>
+              <Link to="/addRoom">Create Room</Link>
+            </li>
+            )}
             {this.state.cookie && (
       <li>
         <Link to="/" onClick={this.LogOut}>LogOut</Link>

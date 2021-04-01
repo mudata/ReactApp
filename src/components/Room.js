@@ -9,7 +9,9 @@ export default function Room({ room }) {
   return (
     <article className="room">
       <div className="img-container">
-        <img src={images[0] || defaultImg} alt="single room" />
+        {/* <img src={images[0] || defaultImg} alt="single room" /> */}
+        <img src="https://pix10.agoda.net/hotelImages/487/487386/487386_13090617190014898442.jpg?s=1024x768" alt="single room" />
+        
         <div className="price-top">
           <h6>${price}</h6>
           <p>per night</p>

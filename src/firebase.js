@@ -3,6 +3,8 @@ import "firebase/auth";
 import "firebase/firestore";
 import { getAllCookies, getCookie, removeCookie, setCookie } from './source'
 import { useHistory } from "react-router-dom";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+
 const firebaseConfig = {
     apiKey: "AIzaSyD8MPcM4votQ1mr8DYG0HT4Gh5VgRtx6uM",
     authDomain: "reactapp-248b5.firebaseapp.com",
@@ -22,7 +24,16 @@ export const signInWithGoogle = () => {
   // let history = useHistory();
   setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
   auth.signInWithPopup(provider).then(()=>{
-    window.location.reload(); 
+    ToastsStore.success("sign in");
+    setTimeout(() => {
+      
+    window.location.reload();
+    }, 2500);
+    
+  }).catch(()=>{
+    ToastsStore.error("Error signing up with password and email")
+      
+      
   });
   
   // history.push("/");

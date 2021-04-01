@@ -15,8 +15,8 @@ function ProfilePage({ context }) {
   
   const user = useContext(UserContext);
   console.log(user)
-  let favoriteRomms: any[] = [];
-  rooms.forEach((element: { hasOwnProperty: (arg0: string) => any; users: { [x: string]: { name: any; }; name: any; }; fields: any; }) => {
+  let favoriteRomms = [];
+  rooms.forEach((element) => {
     if (element.hasOwnProperty("users")) {
       console.log(element);
       console.log("ima property")

@@ -18,7 +18,8 @@ export default function AddRoom() {
     let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [breakfast, setBreakfast] = useState("");
+    const [breakfast, setBreakfast] = useState(Boolean);
+    
     const [capacity, setCapacity] = useState('');
     const [name, setName] = useState('');
     const [pets, setPets] = useState('');
@@ -29,23 +30,14 @@ export default function AddRoom() {
 
 
     const [error, setError] = useState(null);
-    const Create = (name, capacity) => {
-
-        auth.signInWithEmailAndPassword(email, password).then((result) => {
-
-        })
-            .catch(error => {
-                ToastsStore.error("Error signing in with password and email")
-                setError("Error signing in with password and email!");
-                console.error("Error signing in with password and email", error);
-
-
-            });
+    const Create = (event, name,breakfast,capacity,pets,price,size,slug,type) => {
+console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
+       
 
     };
 
     const onChangeHandler = (event) => {
-        
+        console.log(event.target.value)
         const { name, value } = event.currentTarget;
         console.log(value)
         if (name === 'userEmail') {
@@ -55,7 +47,13 @@ export default function AddRoom() {
             setPassword(value);
         }
         else if (name === 'breakfast') {
-            setBreakfast(value);
+            console.log("breakfast")
+            if(value=="true"){
+                setBreakfast(false);
+            }else if(value=="false"){
+                setBreakfast(true);
+            }
+            
         }
         else if (name === 'capacity') {
             setCapacity(value);
@@ -185,7 +183,7 @@ export default function AddRoom() {
                         Breakfast:
           </label>
 
-                    <input
+                    {/* <input
                         type="email"
                         className="input"
                         name="breakfast"
@@ -193,11 +191,18 @@ export default function AddRoom() {
                         placeholder=""
                         
                         onChange={(event) => onChangeHandler(event)}
-                    />
+                    /> */}
+                    <input type="checkbox"
+                    name="breakfast"
+                    value={breakfast}
+            //    onChange={e => this.handleChange(e)}
+            onChange={(event) => onChangeHandler(event)}
+               defaultChecked={breakfast}/>
+        {breakfast.toString()}
 
 
                     
-                    <button className="signin-button" onClick={(event) => { Create(event, email, password) }}>
+                    <button className="signin-button" onClick={(event) => { Create(event, name,breakfast,capacity,pets,price,size,slug,type) }}>
                         Create
           </button>
                 </form>

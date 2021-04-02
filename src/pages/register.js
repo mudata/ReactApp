@@ -28,12 +28,17 @@ const SignUp = () => {
 
     }
     catch (error) {
-      //ToastsStore.error("Error signing up with password and email")
+      if(error){
 
-      setTimeout(() => {
-        setError('Error Signing up with email and password');
-      }, 2000);
+        ToastsStore.error("Error signing up with password and email")
 
+        setTimeout(() => {
+          setError('Error Signing up with email and password');
+        }, 2000);
+  
+      }
+
+      
 
     }
 

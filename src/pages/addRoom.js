@@ -4,14 +4,11 @@ import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom";
 import { ToastsContainer, ToastsStore } from 'react-toasts';
+import Template2 from "../components/Template"
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { getUserDocument } from "../firebase"
-import {
-    Link,
-    Redirect,
-} from '@dollarshaveclub/react-passage'
+
 export default function AddRoom() {
 
     const firestore = firebase.firestore();
@@ -19,20 +16,38 @@ export default function AddRoom() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [breakfast, setBreakfast] = useState(Boolean);
-    
+
     const [capacity, setCapacity] = useState('');
     const [name, setName] = useState('');
-    const [pets, setPets] = useState('');
+    const [pets, setPets] = useState(Boolean);
     const [price, setPrice] = useState('');
     const [size, setSize] = useState('');
     const [slug, setSlug] = useState('');
     const [type, setType] = useState('');
+    const [description, setDescription] = useState('');
+    const [featured, setFeatured] = useState(Boolean);
 
-
+console.log(breakfast)
     const [error, setError] = useState(null);
-    const Create = (event, name,breakfast,capacity,pets,price,size,slug,type) => {
-console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
-       
+    const Create = (event, name, breakfast, capacity, pets, price, size, slug, type,featured,description) => {
+        event.preventDefault()
+        console.log(name, breakfast, capacity, pets, price, size, slug, type,featured,description)
+const obj=Template2(name, breakfast, capacity, pets, price, size, slug, type,featured,description)
+console.log(obj);
+
+
+var raw = JSON.stringify(obj);
+
+var requestOptions = {
+  method: 'POST',
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
     };
 
@@ -48,12 +63,12 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
         }
         else if (name === 'breakfast') {
             console.log("breakfast")
-            if(value=="true"){
+            if (value == "true") {
                 setBreakfast(false);
-            }else if(value=="false"){
+            } else if (value == "false") {
                 setBreakfast(true);
             }
-            
+
         }
         else if (name === 'capacity') {
             setCapacity(value);
@@ -62,10 +77,25 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
             setName(value);
         }
         else if (name === 'pets') {
-            setPets(value);
+
+            if (value == "true") {
+                setPets(false);
+            } else if (value == "false") {
+                setPets(true);
+            }
         }
         else if (name === 'price') {
             setPrice(value);
+        }
+        else if (name === 'featured') {
+            if (value == "true") {
+                setFeatured(false)
+            } else if (value == "false") {
+                setFeatured(true)
+            }
+        }
+        else if (name === 'description') {
+            setDescription(value);
         }
         else if (name === 'size') {
             setSize(value);
@@ -92,7 +122,7 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
                         name:
           </label>
                     <input
-                        type="email"
+                        type="text"
                         className="input"
                         name="name"
                         value={name}
@@ -104,7 +134,7 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
                         price:
           </label>
                     <input
-                        type="email"
+                        type="text"
                         className="input"
                         name="price"
                         value={price}
@@ -116,7 +146,7 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
                         size:
           </label>
                     <input
-                        type="email"
+                        type="text"
                         className="input"
                         name="size"
                         value={size}
@@ -128,7 +158,7 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
                         model:
           </label>
                     <input
-                        type="email"
+                        type="text"
                         className="input"
                         name="slug"
                         value={slug}
@@ -140,7 +170,7 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
                         type:
           </label>
                     <input
-                        type="email"
+                        type="text"
                         className="input"
                         name="type"
                         value={type}
@@ -151,16 +181,16 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
 
 
 
-                    
+
                     <label htmlFor="userEmail" className="block4">
-                        pets:
+                        description:
           </label>
 
                     <input
-                        type="email"
+                        type="text"
                         className="input"
-                        name="pets"
-                        value={pets}
+                        name="description"
+                        value={description}
                         placeholder=""
                         id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
@@ -170,45 +200,71 @@ console.log(event, name,breakfast,capacity,pets,price,size,slug,type)
           </label>
 
                     <input
-                        type="email"
+                        type="text"
                         className="input"
                         name="capacity"
                         value={capacity}
                         placeholder=""
-                        
+
                         onChange={(event) => onChangeHandler(event)}
                     />
 
-<label htmlFor="userEmail" className="block4">
+                    <label htmlFor="userEmail" className="block4">
                         Breakfast:
           </label>
 
-                    {/* <input
-                        type="email"
-                        className="input"
+
+                    <input type="checkbox"
                         name="breakfast"
                         value={breakfast}
-                        placeholder=""
-                        
+                        //    onChange={e => this.handleChange(e)}
                         onChange={(event) => onChangeHandler(event)}
-                    /> */}
+                        defaultChecked={breakfast} />
+                    {breakfast.toString()}
+
+
+
+                    <label htmlFor="userEmail" className="block4">
+                        featured:
+          </label>
+
+
                     <input type="checkbox"
-                    name="breakfast"
-                    value={breakfast}
-            //    onChange={e => this.handleChange(e)}
-            onChange={(event) => onChangeHandler(event)}
-               defaultChecked={breakfast}/>
-        {breakfast.toString()}
+                        name="featured"
+                        value={featured}
+                        //    onChange={e => this.handleChange(e)}
+                        onChange={(event) => onChangeHandler(event)}
+                        defaultChecked={featured} />
+                    {featured.toString()}
 
 
-                    
-                    <button className="signin-button" onClick={(event) => { Create(event, name,breakfast,capacity,pets,price,size,slug,type) }}>
+
+
+                    <label htmlFor="userEmail" className="block4">
+                        pets:
+          </label>
+
+
+                    <input type="checkbox"
+                        name="pets"
+                        value={pets}
+                        //    onChange={e => this.handleChange(e)}
+                        onChange={(event) => onChangeHandler(event)}
+                        defaultChecked={pets} />
+                    {pets.toString()}
+
+
+
+
+                    <button className="signin-button" onClick={(event) => { Create(event, name, breakfast, capacity, pets, price, size, slug, type,featured,description) }}>
                         Create
           </button>
                 </form>
-                
+
             </div>
         </div>
     );
 };
+
+
 

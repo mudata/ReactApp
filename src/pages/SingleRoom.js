@@ -27,7 +27,27 @@ export default class SingleRoom extends Component {
   isOnline= false;
 
   
+  async DeleteRoom(){
+    const { getRoom } = this.context;
+//room
+    const room =getRoom(this.state.slug);
+    console.log(room);
+
+    var raw = "";
+
+    var requestOptions = {
+      method: 'DELETE',
+      body: raw,
+      redirect: 'follow'
+    };
     
+    fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}.json`, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
+
+  }
 
  async addToFavorite(){
     
@@ -203,6 +223,23 @@ fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fiel
            Add to Favorite
          </button>
             )}
+
+{getCookie("cookie2")=="admin" && (
+           <button
+           className="favorite-botton"
+           onClick={() => {
+             this.DeleteRoom();
+             
+           }}
+         >
+           Delete Room 
+         </button>
+            )}
+
+
+
+
+
          <div>
       
         {<ToastsContainer store={ToastsStore}/> }

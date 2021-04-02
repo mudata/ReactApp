@@ -3,7 +3,7 @@ import cookie from 'cookie'
 export const getCookie = (name: string) => {
   const cookies = cookie.parse(document.cookie)
   const value = cookies && cookies[name];
-  if(value==undefined){
+  if(value===undefined){
     return;
   }
   const hasToParse = Boolean((value && value[0] === '{') || value[0] === '[')

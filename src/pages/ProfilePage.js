@@ -1,12 +1,7 @@
-
 import React, { useContext } from "react";
-import RoomsFilter from "../components/RoomFilter";
 import { UserContext } from "../providers/UserProvider";
-import RoomsList from "../components/RoomList";
 import { withRoomConsumer } from "../providers/context";
-import Loading from "../components/Loading";
 import Room from "../components/Room";
-import { auth, generateUserDocument } from "../firebase";
 function ProfilePage({ context }) {
   
   const { loading, sortedRooms, rooms } = context;

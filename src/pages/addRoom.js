@@ -1,7 +1,4 @@
-import React, { useState, useContext } from "react";
-import { getCookie, removeCookie, setCookie } from '../source'
-import { signInWithGoogle } from "../firebase";
-import { auth } from "../firebase";
+import React, { useState, } from "react";
 import { useHistory } from "react-router-dom";
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 import Template2 from "../components/Template"
@@ -13,8 +10,7 @@ export default function AddRoom() {
 
     const firestore = firebase.firestore();
     let history = useHistory();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    
     const [breakfast, setBreakfast] = useState(Boolean);
 
     const [capacity, setCapacity] = useState('');
@@ -27,87 +23,66 @@ export default function AddRoom() {
     const [description, setDescription] = useState('');
     const [featured, setFeatured] = useState(Boolean);
 
-console.log(breakfast)
+    console.log(breakfast)
     const [error, setError] = useState(null);
-    const Create = (event, name, breakfast, capacity, pets, price, size, slug, type,featured,description) => {
+    const Create = (event, name, breakfast, capacity, pets, price, size, slug, type, featured, description) => {
         event.preventDefault()
-        console.log(name, breakfast, capacity, pets, price, size, slug, type,featured,description)
-const obj=Template2(name, breakfast, capacity, pets, price, size, slug, type,featured,description)
-console.log(obj);
+        const obj = Template2(name, breakfast, capacity, pets, price, size, slug, type, featured, description)
 
+        var raw = JSON.stringify(obj);
 
-var raw = JSON.stringify(obj);
+        var requestOptions = {
+            method: 'POST',
+            body: raw,
+            redirect: 'follow'
+        };
 
-var requestOptions = {
-  method: 'POST',
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+        fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                ToastsStore.success("You create Room")
+                setTimeout(() => {
+                    history.push("/");
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch(error => {
+                ToastsStore.error("Error creating room")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            });
 
     };
 
     const onChangeHandler = (event) => {
         console.log(event.target.value)
         const { name, value } = event.currentTarget;
-        console.log(value)
-        if (name === 'userEmail') {
-            setEmail(value);
-        }
-        else if (name === 'userPassword') {
-            setPassword(value);
-        }
-        else if (name === 'breakfast') {
+        console.log(value);
+        
+        if (name === 'breakfast') {
             console.log("breakfast")
-            if (value == "true") {
-                setBreakfast(false);
-            } else if (value == "false") {
-                setBreakfast(true);
-            }
-
+            if (value == "true") setBreakfast(false);
+            else if (value == "false") setBreakfast(true);
         }
-        else if (name === 'capacity') {
-            setCapacity(value);
-        }
-        else if (name === 'name') {
-            setName(value);
-        }
+        else if (name === 'capacity') setCapacity(value);
+        
+        else if (name === 'name') setName(value);
         else if (name === 'pets') {
-
-            if (value == "true") {
-                setPets(false);
-            } else if (value == "false") {
-                setPets(true);
-            }
+            if (value == "true") setPets(false);
+            else if (value == "false") setPets(true);
         }
-        else if (name === 'price') {
-            setPrice(value);
-        }
+        else if (name === 'price') {setPrice(value);
         else if (name === 'featured') {
-            if (value == "true") {
-                setFeatured(false)
-            } else if (value == "false") {
-                setFeatured(true)
-            }
+            if (value == "true") setFeatured(false);
+            else if (value == "false") setFeatured(true);
         }
-        else if (name === 'description') {
-            setDescription(value);
-        }
-        else if (name === 'size') {
-            setSize(value);
-        }
-        else if (name === 'slug') {
-            setSlug(value);
-        }
-        else if (name === 'type') {
-            setType(value);
-        }
+        else if (name === 'description') setDescription(value);
+        else if (name === 'size') setSize(value);
+        else if (name === 'slug') setSlug(value);
+        else if (name === 'type') setType(value);
 
-        console.log(name, value)
+        
     };
 
 
@@ -243,20 +218,14 @@ fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOp
                     <label htmlFor="userEmail" className="block4">
                         pets:
           </label>
-
-
                     <input type="checkbox"
                         name="pets"
                         value={pets}
-                        //    onChange={e => this.handleChange(e)}
                         onChange={(event) => onChangeHandler(event)}
                         defaultChecked={pets} />
                     {pets.toString()}
 
-
-
-
-                    <button className="signin-button" onClick={(event) => { Create(event, name, breakfast, capacity, pets, price, size, slug, type,featured,description) }}>
+                    <button className="signin-button" onClick={(event) => { Create(event, name, breakfast, capacity, pets, price, size, slug, type, featured, description) }}>
                         Create
           </button>
                 </form>

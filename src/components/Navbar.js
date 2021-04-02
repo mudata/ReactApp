@@ -4,7 +4,6 @@ import { FaAlignRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getCookie, removeCookie } from "../source";
 import {auth, firestore} from "../firebase";
-import { useHistory } from "react-router-dom";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
 
 export default class Navbar extends Component {
@@ -22,9 +21,10 @@ export default class Navbar extends Component {
     // let history = useHistory();
     auth.signOut().then(()=>{
       ToastsStore.success("You have successfully Logged Out");
-      setTimeout(() => {
-        removeCookie('cookie');
+      removeCookie('cookie');
       removeCookie('cookie2');
+      removeCookie('cookie3');
+      setTimeout(() => {
       window.location.reload(); 
       }, 2500);
       

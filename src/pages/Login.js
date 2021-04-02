@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { getCookie, removeCookie, setCookie } from '../source'
+import { setCookie } from '../source'
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom";
@@ -45,6 +45,7 @@ const SignIn = () => {
 
 
       setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
+      setCookie('cookie3', `${result.user.uid}`);
 
       ToastsStore.success("You have successfully Sign In")
       setTimeout(() => {

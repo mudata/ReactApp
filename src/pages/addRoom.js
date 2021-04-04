@@ -61,7 +61,6 @@ export default function AddRoom() {
         console.log(value);
         
         if (name === 'breakfast') {
-            console.log("breakfast")
             if (value == "true") setBreakfast(false);
             else if (value == "false") setBreakfast(true);
         }
@@ -72,7 +71,7 @@ export default function AddRoom() {
             if (value == "true") setPets(false);
             else if (value == "false") setPets(true);
         }
-        else if (name === 'price') {setPrice(value);
+        else if (name === 'price') setPrice(value);
         else if (name === 'featured') {
             if (value == "true") setFeatured(false);
             else if (value == "false") setFeatured(true);

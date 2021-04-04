@@ -80,7 +80,7 @@ export default class Navbar extends Component {
               <Link to="/profile">Profile</Link>
             </li>
 )}
-{this.state.cookie2 && (
+{this.state.cookie2==="admin" && (
             <li>
               <Link to="/addRoom">Create Room</Link>
             </li>

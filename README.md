@@ -1,18 +1,28 @@
-
+## Available Scripts
 ![home1](https://user-images.githubusercontent.com/23016548/113547908-5de9db80-95f7-11eb-9c75-ac5353b4a062.png)
 ![home2](https://user-images.githubusercontent.com/23016548/113547963-70fcab80-95f7-11eb-91f9-95ea1debf2ce.png)
 ![home3](https://user-images.githubusercontent.com/23016548/113547995-7b1eaa00-95f7-11eb-9159-e55dd7796e46.png)
+##
 ![sign-in](https://user-images.githubusercontent.com/23016548/113548010-81148b00-95f7-11eb-9e3e-766cb521d92d.png)
+##
 ![sign-up](https://user-images.githubusercontent.com/23016548/113548019-8376e500-95f7-11eb-8bd9-835fd69c4c16.png)
+##
 ![sign-in with gmail](https://user-images.githubusercontent.com/23016548/113548028-87a30280-95f7-11eb-8874-9ac2030dd216.png)
+##
 ![reset-password](https://user-images.githubusercontent.com/23016548/113548041-8a9df300-95f7-11eb-83bc-afa4dc915fe9.png)
+##
 ![create-room](https://user-images.githubusercontent.com/23016548/113548049-8e317a00-95f7-11eb-8ba9-bf7b426bf469.png)
+##
 ![profile](https://user-images.githubusercontent.com/23016548/113548066-94bff180-95f7-11eb-8f89-effdc5c3fa1d.png)
+##
 ![about](https://user-images.githubusercontent.com/23016548/113548076-98537880-95f7-11eb-82b1-e1b3068a3120.png)
+##
 ![rooms1](https://user-images.githubusercontent.com/23016548/113548088-9c7f9600-95f7-11eb-995b-f0ff5949d0f6.png)
 ![rooms2](https://user-images.githubusercontent.com/23016548/113548089-9d182c80-95f7-11eb-94d9-c68c40876337.png)
-![sigle-room2](https://user-images.githubusercontent.com/23016548/113548104-a2757700-95f7-11eb-8170-5dcaf9609870.png)
+##
+
 ![sigle-room](https://user-images.githubusercontent.com/23016548/113548108-a30e0d80-95f7-11eb-936a-6b09eb522e97.png)
+![sigle-room2](https://user-images.githubusercontent.com/23016548/113548104-a2757700-95f7-11eb-8170-5dcaf9609870.png)
 
 # Getting Started with Create React App
 

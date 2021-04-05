@@ -26,7 +26,7 @@ export const signInWithGoogle = () => {
   
   auth.signInWithPopup(provider).then((result)=>{
     console.log(result.user.uid)
-    ToastsStore.success("sign in");
+    ToastsStore.success("You have successfully Sign In");
     const userDocument = getUserDocument(result.user.uid)
       userDocument.then((result2) => {
          result2.role==="admin" ? setCookie('cookie2', `${result2.role}`) : setCookie('cookie2', `viewer`)

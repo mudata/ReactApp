@@ -7,11 +7,13 @@ import UserProvider from './providers/UserProvider';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
+  
 <UserProvider>
   <RoomProvider>
     
   <Router>
     <App />
+    
   </Router>
   
 </RoomProvider>

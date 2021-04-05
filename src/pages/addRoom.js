@@ -29,9 +29,10 @@ export default function AddRoom() {
         event.preventDefault()
         const obj = Template2(name, breakfast, capacity, pets, price, size, slug, type, featured, description)
         postRoom(obj).then(result => {
-            ToastsStore.success("You create Room")
+            ToastsStore.success("You create Room");
+            history.push("/");
             setTimeout(() => {
-                history.push("/");
+                
                 window.location.reload();
             }, 2500);
         })

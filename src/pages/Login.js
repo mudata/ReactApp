@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import { setCookie } from '../source'
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
@@ -9,12 +9,18 @@ import "firebase/auth";
 import "firebase/firestore";
 import { getUserDocument } from "../firebase"
 import { signIn } from "../firebase";
+import {ToastContainer,toast} from 'react-toastify'
 import {
   Link,
   Redirect,
 } from '@dollarshaveclub/react-passage'
 const SignIn = () => {
-
+  useEffect(() => {
+    // Update the document title using the browser API
+    console.log("efect");
+    
+    //window.location.reload();
+  });
   const firestore = firebase.firestore();
   let history = useHistory();
   const [email, setEmail] = useState('');
@@ -32,18 +38,22 @@ const SignIn = () => {
       })
       setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
       setCookie('cookie3', `${result.user.uid}`);
-      ToastsStore.success("You have successfully Sign In")
-      setTimeout(() => {
-        history.push("/");
-        window.location.reload();
-      }, 2500);
+      ToastsStore.success("You have successfully Sign In");
+      toast('hdadsasdasadsadsy')
+      history.push("/");
+      // setTimeout(() => {
+        
+      //window.location.reload();
+
+      //setInterval(function(){  window.location.reload(); }, 3000);
+      // }, 2500);
 
     })
       .catch(error => {
         ToastsStore.error("Error signing in with password and email")
+        // setError("Error signing in with password and email!");
         setTimeout(() => {
-          setError("Error signing in with password and email!");
-          history.push("/");
+          
           window.location.reload();
         }, 2500);
 
@@ -66,7 +76,7 @@ const SignIn = () => {
 
   return (
     <div className="LoginForm">
-      <ToastsContainer store={ToastsStore} />
+      <ToastsContainer store={ToastsStore}  />
       <h1 className="">Sign In</h1>
       <div className="">
         {error !== null && <div className="">{error}</div>}
@@ -105,6 +115,7 @@ const SignIn = () => {
           onClick={() => {
             signInWithGoogle();
             history.push("/");
+            
           }}
         >
           Sign in with Google

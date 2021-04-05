@@ -17,15 +17,17 @@ import {getCookie} from "./source"
 import Footer from "./components/Footer";
 import About from "./pages/About";
 import AddRoom from "./pages/addRoom"
-
-
+import { ToastsContainer, ToastsStore } from 'react-toasts';
+import {ToastContainer,toast} from 'react-toastify'
 function App() {
   const user = useContext(UserContext);
   const role=getCookie("cookie2")
 
   return (
     <>
+     
       <Navbar />
+      <ToastContainer /> 
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/rooms/" component={Rooms} />
@@ -46,6 +48,7 @@ function App() {
 
         <Route component={Error} />
       </Switch>
+      {/* <ToastsContainer store={ToastsStore}/>  */}
       <Footer />
     </>
   );

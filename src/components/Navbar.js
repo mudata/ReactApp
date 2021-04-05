@@ -1,44 +1,47 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import logo from "../images/logo.svg";
 import { FaAlignRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getCookie, removeCookie } from "../source";
-import {auth, firestore} from "../firebase";
-import {ToastsContainer, ToastsStore} from 'react-toasts';
+import { auth, firestore } from "../firebase";
+import { ToastsContainer, ToastsStore } from 'react-toasts';
 
 export default class Navbar extends Component {
-  
+
   state = {
     isOpen: false,
-    cookie:getCookie("cookie"),
-    cookie2:getCookie("cookie2"),
+    cookie: getCookie("cookie"),
+    cookie2: getCookie("cookie2"),
   };
+
   handleToggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
     console.log(this.state)
   };
-  async LogOut(){
+ LogOut= () => {
     // let history = useHistory();
-    auth.signOut().then( ()=>{
+    this.setState({ cookie: undefined });
+    this.setState({ cookie2: undefined });
+    auth.signOut().then(() => {
       ToastsStore.success("You have successfully Logged Out");
-     removeCookie('cookie');
+      removeCookie('cookie');
       removeCookie('cookie2');
       removeCookie('cookie3');
-      setTimeout(() => {
-      window.location.reload(); 
-      }, 2500);
+      // setTimeout(() => {
+      // //window.location.reload(); 
+      // }, 2500);
       
-    }).catch(()=>{
+    }).catch(() => {
       ToastsStore.error("cant log out")
     });
-   
-  
+
+    
   }
-  
+
   render() {
     return (
       <nav className="navbar">
-        <ToastsContainer store={ToastsStore}/> 
+        <ToastsContainer store={ToastsStore} />
         <div className="nav-center">
           <div className="nav-header">
             <Link to="/" onClick={this.handleToggle}>
@@ -65,30 +68,32 @@ export default class Navbar extends Component {
               <Link to="/about">About</Link>
             </li>
             {!this.state.cookie && (
-            <li>
-              <Link to="/login">SignIn</Link>
-            </li>
+              <li>
+                <Link to="/login">SignIn</Link>
+              </li>
             )}
             {!this.state.cookie && (
-            <li>
-              <Link to="/register">SingUp</Link>
-            </li>
+              <li>
+                <Link to="/register">SingUp</Link>
+              </li>
             )}
             {this.state.cookie && (
-      <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-)}
-{this.state.cookie2==="admin" && (
-            <li>
-              <Link to="/addRoom">Create Room</Link>
-            </li>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+            )}
+            {this.state.cookie2 === "admin" && (
+              <li>
+                <Link to="/addRoom">Create Room</Link>
+              </li>
             )}
             {this.state.cookie && (
-      <li>
-        <Link to="/" onClick={this.LogOut}>LogOut</Link>
-      </li>
-    )}
+              <li>
+                <Link to="/" onClick={
+                  this.LogOut
+                }>LogOut</Link>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

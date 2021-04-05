@@ -17,40 +17,19 @@ const SignUp = () => {
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
 
     event.preventDefault();
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password).then(() => {
+    // try {
+      const  user  = await auth.createUserWithEmailAndPassword(email, password).then(() => {
         
         ToastsStore.success("You have successfully Registered");
-        setTimeout(() => {
           history.push("/");
-        }, 2500);
+        generateUserDocument(user, { displayName, rooms });
         
-        generateUserDocument(user, { displayName, rooms })
       }).catch((error)=>{
-        ToastsStore.error("Error signing up with password and email")
-
-        setTimeout(() => {
+        // ToastsStore.error("Error signing up with password and email")
           setError('Error Signing up with email and password');
-        }, 2000);
       })
       
 
-    }
-    catch (error) {
-      if(error){
-
-        ToastsStore.error("Error signing up with password and email")
-
-        setTimeout(() => {
-          setError('Error Signing up with email and password');
-        }, 2000);
-  
-      }
-
-      
-
-    }
-    
     setEmail("");
     setPassword("");
     setDisplayName("");

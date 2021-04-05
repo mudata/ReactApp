@@ -18,10 +18,6 @@ render() {
             },
             
             {
-                name: "Contact",
-                link: "/contact"
-            },
-            {
                 name: "Home",
                 link: "/"
             },
@@ -32,19 +28,7 @@ render() {
         ]
     },
     
-    // {
-    //     title: "Sign in",
-    //     resources: [
-    //         {
-    //             name: "Sign In",
-    //             link: "/login"
-    //         },
-    //         {
-    //             name: "Sign Up",
-    //             link: "/register"
-    //         }
-    //     ]
-    // }
+    
  ];
  return <SimpleReactFooter 
     description={description} 

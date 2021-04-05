@@ -88,7 +88,7 @@ export default function AddRoom() {
     return (
         <div className="LoginForm">
             <ToastsContainer store={ToastsStore} />
-            <h1 className="">Sign In</h1>
+            <h1 className="">Create Room</h1>
             <div className="">
                 {error !== null && <div className="">{error}</div>}
                 <form className="loginF">

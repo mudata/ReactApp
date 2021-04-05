@@ -1,10 +1,10 @@
-Site made with React and Firebase for my back-end.
-Session cookies for Authentication.
-Sign in , with reset password link, and Sign up Pages.
-Profile Page where we store our favorite rooms.
-Header and Footer Components.
-About Page.
-Rooms Page where load all available rooms.
+###Site made with React and Firebase for my back-end.
+###Session cookies for Authentication.
+###Sign in , with reset password link, and Sign up Pages.
+###Profile Page where we store our favorite rooms.
+###Header and Footer Components.
+###About Page.
+###Rooms Page where load all available rooms.
 ## Home Page
 ![home1](https://user-images.githubusercontent.com/23016548/113547908-5de9db80-95f7-11eb-9c75-ac5353b4a062.png)
 ![home2](https://user-images.githubusercontent.com/23016548/113547963-70fcab80-95f7-11eb-91f9-95ea1debf2ce.png)

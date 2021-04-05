@@ -22,8 +22,7 @@ export default function RoomFilter({ rooms }) {
   } = context;
   // get unique types
   let types = getUnique(rooms, "type");
-  console.log(types)
-  console.log(rooms)
+
   // add all
   types = ["all", ...types];
 

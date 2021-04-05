@@ -5,12 +5,12 @@ import Template2 from "../components/Template"
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-
+import { postRoom } from "../providers/fetchRooms"
 export default function AddRoom() {
 
     const firestore = firebase.firestore();
     let history = useHistory();
-    
+
     const [breakfast, setBreakfast] = useState(Boolean);
 
     const [capacity, setCapacity] = useState('');
@@ -28,44 +28,31 @@ export default function AddRoom() {
     const Create = (event, name, breakfast, capacity, pets, price, size, slug, type, featured, description) => {
         event.preventDefault()
         const obj = Template2(name, breakfast, capacity, pets, price, size, slug, type, featured, description)
-
-        var raw = JSON.stringify(obj);
-
-        var requestOptions = {
-            method: 'POST',
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                ToastsStore.success("You create Room")
-                setTimeout(() => {
-                    history.push("/");
-                    window.location.reload();
-                }, 2500);
-            })
+        postRoom(obj).then(result => {
+            ToastsStore.success("You create Room")
+            setTimeout(() => {
+                history.push("/");
+                window.location.reload();
+            }, 2500);
+        })
             .catch(error => {
                 ToastsStore.error("Error creating room")
                 setTimeout(() => {
                     window.location.reload();
                 }, 2500);
             });
+        
 
     };
 
     const onChangeHandler = (event) => {
-        console.log(event.target.value)
         const { name, value } = event.currentTarget;
-        console.log(value);
-        
         if (name === 'breakfast') {
             if (value == "true") setBreakfast(false);
             else if (value == "false") setBreakfast(true);
         }
         else if (name === 'capacity') setCapacity(value);
-        
+
         else if (name === 'name') setName(value);
         else if (name === 'pets') {
             if (value == "true") setPets(false);
@@ -81,7 +68,7 @@ export default function AddRoom() {
         else if (name === 'slug') setSlug(value);
         else if (name === 'type') setType(value);
 
-        
+
     };
 
 
@@ -97,11 +84,8 @@ export default function AddRoom() {
           </label>
                     <input
                         type="text"
-                        className="input"
                         name="name"
                         value={name}
-                        placeholder=""
-                        id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
                     />
                     <label htmlFor="userEmail" className="block4">
@@ -109,11 +93,8 @@ export default function AddRoom() {
           </label>
                     <input
                         type="text"
-                        className="input"
                         name="price"
                         value={price}
-                        placeholder=""
-                        id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
                     />
                     <label htmlFor="userEmail" className="block4">
@@ -121,11 +102,8 @@ export default function AddRoom() {
           </label>
                     <input
                         type="text"
-                        className="input"
                         name="size"
                         value={size}
-                        placeholder=""
-                        id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
                     />
                     <label htmlFor="userEmail" className="block4">
@@ -133,11 +111,8 @@ export default function AddRoom() {
           </label>
                     <input
                         type="text"
-                        className="input"
                         name="slug"
                         value={slug}
-                        placeholder=""
-                        id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
                     />
                     <label htmlFor="userEmail" className="block4">
@@ -145,28 +120,17 @@ export default function AddRoom() {
           </label>
                     <input
                         type="text"
-                        className="input"
                         name="type"
                         value={type}
-                        placeholder=""
-                        id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
                     />
-
-
-
-
                     <label htmlFor="userEmail" className="block4">
                         description:
           </label>
-
                     <input
                         type="text"
-                        className="input"
                         name="description"
                         value={description}
-                        placeholder=""
-                        id="userEmail"
                         onChange={(event) => onChangeHandler(event)}
                     />
                     <label htmlFor="userEmail" className="block4">
@@ -175,29 +139,20 @@ export default function AddRoom() {
 
                     <input
                         type="text"
-                        className="input"
                         name="capacity"
                         value={capacity}
-                        placeholder=""
-
                         onChange={(event) => onChangeHandler(event)}
                     />
 
                     <label htmlFor="userEmail" className="block4">
                         Breakfast:
           </label>
-
-
                     <input type="checkbox"
                         name="breakfast"
                         value={breakfast}
-                        //    onChange={e => this.handleChange(e)}
                         onChange={(event) => onChangeHandler(event)}
                         defaultChecked={breakfast} />
                     {breakfast.toString()}
-
-
-
                     <label htmlFor="userEmail" className="block4">
                         featured:
           </label>
@@ -206,14 +161,9 @@ export default function AddRoom() {
                     <input type="checkbox"
                         name="featured"
                         value={featured}
-                        //    onChange={e => this.handleChange(e)}
                         onChange={(event) => onChangeHandler(event)}
                         defaultChecked={featured} />
                     {featured.toString()}
-
-
-
-
                     <label htmlFor="userEmail" className="block4">
                         pets:
           </label>

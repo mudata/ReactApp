@@ -19,9 +19,9 @@ export default class Navbar extends Component {
   };
   async LogOut(){
     // let history = useHistory();
-    auth.signOut().then(()=>{
+    auth.signOut().then( ()=>{
       ToastsStore.success("You have successfully Logged Out");
-      removeCookie('cookie');
+     removeCookie('cookie');
       removeCookie('cookie2');
       removeCookie('cookie3');
       setTimeout(() => {
@@ -32,10 +32,9 @@ export default class Navbar extends Component {
       ToastsStore.error("cant log out")
     });
    
-    // history.push("/"); 
-    // console.log(this.state);
-    
+  
   }
+  
   render() {
     return (
       <nav className="navbar">

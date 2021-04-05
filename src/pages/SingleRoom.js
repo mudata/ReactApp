@@ -7,6 +7,7 @@ import StyledHero from "../components/StyledHero";
 import "firebase/firestore";
 import { getCookie } from "../source";
 import { ToastsContainer, ToastsStore } from 'react-toasts';
+import { deleteRoom,remove } from "../providers/fetchRooms";
 
 export default class SingleRoom extends Component {
   constructor(props) {
@@ -27,30 +28,19 @@ export default class SingleRoom extends Component {
     const { getRoom } = this.context;
     //room
     const room = getRoom(this.state.slug);
-    console.log(room);
-
-    var raw = "";
-
-    var requestOptions = {
-      method: 'DELETE',
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}.json`, requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        ToastsStore.success("Hey, you delete this room ");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2500);
-      })
-      .catch(error => {
-        ToastsStore.error(`error`)
-        setTimeout(() => {
-          window.location.reload();
-        }, 2500);
-      });
+deleteRoom(room).then(result => {
+      ToastsStore.success("Hey, you delete this room ");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
+    })
+    .catch(error => {
+      ToastsStore.error(`error`)
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
+    });
+   
 
 
   }
@@ -58,40 +48,21 @@ export default class SingleRoom extends Component {
     const { getRoom } = this.context;
     //room
     const room = getRoom(this.state.slug);
-    console.log(room);
-
     //user
     const user = getCookie("cookie3")
-    console.log(user);
-    const obj = {
-      "name": user
-    };
-    var raw = JSON.stringify({ name: "" });
-
-    var requestOptions = {
-      method: 'PATCH',
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user}.json`, requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        ToastsStore.success("Hey, you remove this room from favorite");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2500);
-      })
-      .catch(error => {
-        ToastsStore.error(`error`)
-        setTimeout(() => {
-          window.location.reload();
-        }, 2500);
-      });
-
-
-
-
+    remove(room.id2,user) .then(result => {
+          ToastsStore.success("Hey, you remove this room from favorite");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2500);
+        })
+        .catch(error => {
+          ToastsStore.error(`error`)
+          setTimeout(() => {
+            window.location.reload();
+          }, 2500);
+        });
+    
 
   }
   async addToFavorite() {
@@ -161,7 +132,6 @@ export default class SingleRoom extends Component {
             //
           })
           .catch(error => {
-            // addError(`LOAD_DATA_ERROR: ${error}`, error);
             console.log('error', error)
             ToastsStore.error(`error`)
             setTimeout(() => {
@@ -173,19 +143,6 @@ export default class SingleRoom extends Component {
       })
       .catch(error => console.log('error', error));
 
-
-
-
-
-
-
-
-
-
-
-
-
-    //componentDidMount() {}
 
   }
   render() {

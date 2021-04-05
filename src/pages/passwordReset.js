@@ -7,7 +7,7 @@ const PasswordReset = () => {
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
-  const onChangeHandler = (event: { currentTarget: { name: any; value: any; }; }) => {
+  const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
 
     if (name === "userEmail") {
@@ -15,7 +15,7 @@ const PasswordReset = () => {
     }
   };
 
-  const sendResetEmail = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const sendResetEmail = (event) => {
     event.preventDefault();
     auth
       .sendPasswordResetEmail(email)

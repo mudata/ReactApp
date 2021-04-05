@@ -8,6 +8,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import { getUserDocument } from "../firebase"
+import { signIn } from "../firebase";
 import {
   Link,
   Redirect,
@@ -19,8 +20,7 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  console.log(email)
-  console.log(password)
+
   const signInWithEmailAndPasswordHandler = (event, email, password) => {
     event.preventDefault();
     auth.signInWithEmailAndPassword(email, password).then((result) => {
@@ -28,25 +28,10 @@ const SignIn = () => {
       
       const userDocument = getUserDocument(result.user.uid)
       userDocument.then((result2) => {
-        console.log(result2)
-        if (result2.role) {
-           //admin role
-          setCookie('cookie2', `${result2.role}`);
-        }
-        else {
-          setCookie('cookie2', `viewer`);
-        }
+        result2.role==="admin" ? setCookie('cookie2', `${result2.role}`) : setCookie('cookie2', `viewer`)
       })
-
-
-
-
-
-
-
       setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
       setCookie('cookie3', `${result.user.uid}`);
-
       ToastsStore.success("You have successfully Sign In")
       setTimeout(() => {
         history.push("/");
@@ -61,9 +46,6 @@ const SignIn = () => {
           history.push("/");
           window.location.reload();
         }, 2500);
-
-        console.error("Error signing in with password and email", error);
-
 
       });
 
@@ -123,7 +105,6 @@ const SignIn = () => {
           onClick={() => {
             signInWithGoogle();
             history.push("/");
-            // window.location.reload();
           }}
         >
           Sign in with Google

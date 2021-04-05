@@ -5,16 +5,11 @@ import Room from "../components/Room";
 function ProfilePage({ context }) {
   
   const { loading, sortedRooms, rooms } = context;
-  console.log(rooms);
 
-  
   const user = useContext(UserContext);
-  console.log(user)
   let favoriteRomms = [];
   rooms.forEach((element) => {
     if (element.hasOwnProperty("users")) {
-      console.log(element);
-      console.log("ima property")
       for (const key in element.users) {
         if (element.users[key].name === user.uid) {
           favoriteRomms.push(element)
@@ -24,7 +19,7 @@ function ProfilePage({ context }) {
         favoriteRomms.push(element.fields)
       }
     }
-    console.log(favoriteRomms)
+
     
   });
   return (

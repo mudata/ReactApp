@@ -29,20 +29,14 @@ export const signInWithGoogle = () => {
     ToastsStore.success("sign in");
     const userDocument = getUserDocument(result.user.uid)
       userDocument.then((result2) => {
-        console.log(result2)
-        if (result2.role) {
-           //admin role
-          setCookie('cookie2', `${result2.role}`);
-        }
-        else {
-          setCookie('cookie2', `viewer`);
-        }
+         result2.role==="admin" ? setCookie('cookie2', `${result2.role}`) : setCookie('cookie2', `viewer`)
+
       })
       setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
       setCookie('cookie3', `${result.user.uid}`);
 
     setTimeout(() => {
-    // window.location.reload();
+    window.location.reload();
     }, 2500);
     
   }).catch(()=>{
@@ -54,6 +48,7 @@ export const signInWithGoogle = () => {
   // history.push("/");
   
 };
+
 
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;

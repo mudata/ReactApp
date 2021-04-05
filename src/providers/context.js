@@ -57,6 +57,9 @@ class RoomProvider extends Component {
       console.log(error);
     }
   };
+  postData = async () => {
+    console.log("post")
+  };
 
   componentDidMount() {
     this.getData();

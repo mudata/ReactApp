@@ -1,5 +1,5 @@
-###Site made with React and Firebase for my back-end.
-###Session cookies for Authentication.
+### Site made with React and Firebase for my back-end.
+### Session cookies for Authentication.
 ###Sign in , with reset password link, and Sign up Pages.
 ###Profile Page where we store our favorite rooms.
 ###Header and Footer Components.

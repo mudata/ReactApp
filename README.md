@@ -6,6 +6,8 @@
 #### About Page.
 #### Rooms Page where load all available rooms.
 ### To start just write /npm i/ and /npm start/ in terminal.
+### Admin Login: email: mudata191@abv.bg pass:123456789
+#### Then you will be able to Create New Room , Delete Room.
 ## Home Page
 ![home1](https://user-images.githubusercontent.com/23016548/113547908-5de9db80-95f7-11eb-9c75-ac5353b4a062.png)
 ![home2](https://user-images.githubusercontent.com/23016548/113547963-70fcab80-95f7-11eb-91f9-95ea1debf2ce.png)

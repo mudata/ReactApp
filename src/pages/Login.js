@@ -1,5 +1,6 @@
 import React, { useState, useContext,useEffect } from "react";
-import { setCookie } from '../source'
+import { getCookie, setCookie } from '../source';
+import { getUserDocument } from "../firebase"
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom";
@@ -7,31 +8,27 @@ import { ToastsContainer, ToastsStore } from 'react-toasts';
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { getUserDocument } from "../firebase"
+
 import { signIn } from "../firebase";
-import {ToastContainer,toast} from 'react-toastify'
+import {ToastContainer,toast} from 'react-toastify';
+import Navbar from "../components/Navbar"
 import {
   Link,
   Redirect,
 } from '@dollarshaveclub/react-passage'
 const SignIn = () => {
-  useEffect(() => {
-    // Update the document title using the browser API
-    console.log("efect");
-    
-    //window.location.reload();
-  });
+  
   const firestore = firebase.firestore();
   let history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
+// Navbar.
   const signInWithEmailAndPasswordHandler = (event, email, password) => {
     event.preventDefault();
     auth.signInWithEmailAndPassword(email, password).then((result) => {
 
-      
+     // console.log(result)
       const userDocument = getUserDocument(result.user.uid)
       userDocument.then((result2) => {
         result2.role==="admin" ? setCookie('cookie2', `${result2.role}`) : setCookie('cookie2', `viewer`)
@@ -39,26 +36,17 @@ const SignIn = () => {
       setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
       setCookie('cookie3', `${result.user.uid}`);
       ToastsStore.success("You have successfully Sign In");
-      toast('hdadsasdasadsadsy')
       history.push("/");
-      // setTimeout(() => {
-        
-      //window.location.reload();
-
-      //setInterval(function(){  window.location.reload(); }, 3000);
-      // }, 2500);
+      setTimeout(() => {
+        window.location.reload();
+    }, 2000);
 
     })
       .catch(error => {
         ToastsStore.error("Error signing in with password and email")
         // setError("Error signing in with password and email!");
-        setTimeout(() => {
-          
-          window.location.reload();
-        }, 2500);
-
       });
-
+      
   };
 
   const onChangeHandler = (event) => {

@@ -4,36 +4,41 @@ import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
 import { UserContext } from "../providers/UserProvider";
 import { useHistory } from "react-router-dom";
 import { ToastsContainer, ToastsStore } from 'react-toasts';
-
+import { getCookie, setCookie } from '../source';
+import { getUserDocument } from "../firebase"
 const SignUp = () => {
   let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
-  const user = useContext(UserContext);
-  console.log(user)
+  //const user = useContext(UserContext);
+  console.log(email)
+  console.log(password)
+  //console.log(user)
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
 
     event.preventDefault();
     // try {
-      const  user  = await auth.createUserWithEmailAndPassword(email, password).then(() => {
-        
+      await auth.createUserWithEmailAndPassword(email, password).then((result) => {
+        console.log(result);
+        //console.log(user)
+        //generateUserDocument(user, { displayName, rooms });
         ToastsStore.success("You have successfully Registered");
-          history.push("/");
-        generateUserDocument(user, { displayName, rooms });
         
-      }).catch((error)=>{
-        // ToastsStore.error("Error signing up with password and email")
-          setError('Error Signing up with email and password');
+        generateUserDocument(result, { displayName });
+
+        history.push("/login");
+        }).catch((error)=>{
+        ToastsStore.error("Error signing up with password and email")
+          //  setError('Error Signing up with email and password');
       })
       
 
     setEmail("");
     setPassword("");
     setDisplayName("");
-    setRooms([]);
+    //history.push("/login");
   };
 
   const onChangeHandler = event => {

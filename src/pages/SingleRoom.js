@@ -7,7 +7,7 @@ import StyledHero from "../components/StyledHero";
 import "firebase/firestore";
 import { getCookie } from "../source";
 import { ToastsContainer, ToastsStore } from 'react-toasts';
-import { deleteRoom,remove } from "../providers/fetchRooms";
+import { deleteRoom, remove } from "../providers/fetchRooms";
 
 export default class SingleRoom extends Component {
   constructor(props) {
@@ -25,49 +25,49 @@ export default class SingleRoom extends Component {
 
 
   async DeleteRoom() {
-    const { getRoom } = this.context;
+    const { getRoom, getData } = this.context;
     //room
     const room = getRoom(this.state.slug);
-deleteRoom(room).then(result => {
+   await deleteRoom(room).then(result => {
       ToastsStore.success("Hey, you delete this room ");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2500);
+      console.log(getData())
+      getData().then(()=>{
+
+      })
+      
     })
-    .catch(error => {
-      ToastsStore.error(`error`)
-      setTimeout(() => {
-        window.location.reload();
-      }, 2500);
-    });
-   
+      .catch(error => {
+        ToastsStore.error(`error`)
+        
+      });
+      
 
 
   }
   async RemoveFromFavorite() {
-    const { getRoom } = this.context;
+    const { getRoom , getData } = this.context;
     //room
     const room = getRoom(this.state.slug);
     //user
     const user = getCookie("cookie3")
-    remove(room.id2,user) .then(result => {
-          ToastsStore.success("Hey, you remove this room from favorite");
-          setTimeout(() => {
-            window.location.reload();
-          }, 2500);
-        })
-        .catch(error => {
-          ToastsStore.error(`error`)
-          setTimeout(() => {
-            window.location.reload();
-          }, 2500);
-        });
-    
+    remove(room.id2, user).then(result => {
+      ToastsStore.success("Hey, you remove this room from favorite");
+      console.log(getData())
+      getData().then(()=>{
+
+      })
+      
+    })
+      .catch(error => {
+        ToastsStore.error(`error`)
+        
+      });
+
 
   }
   async addToFavorite() {
 
-    const { getRoom } = this.context;
+    const { getRoom , getData} = this.context;
     //room
     const room = getRoom(this.state.slug);
     console.log(room);
@@ -83,28 +83,7 @@ deleteRoom(room).then(result => {
 
 
 
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-
-    await fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users.json`, requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        console.log(result)
-        for (const key in result) {
-          if (Object.prototype.hasOwnProperty.call(result, key)) {
-            const element = result[key];
-            if (element.name === user) {
-              ToastsStore.success("Hey, you have this room to your favorites")
-              setTimeout(() => {
-                window.location.reload();
-              }, 2500);
-              return;
-            }
-
-          }
-        }
+    
 
 
         var myHeaders = new Headers();
@@ -125,23 +104,23 @@ deleteRoom(room).then(result => {
             console.log(result)
             //componentDidMount()
             ToastsStore.success("Hey, you just add this room to your favorites")
-            setTimeout(() => {
-              window.location.reload();
-            }, 2500);
+            
+            console.log(getData())
+      getData().then(()=>{
+
+      })
 
             //
           })
           .catch(error => {
             console.log('error', error)
             ToastsStore.error(`error`)
-            setTimeout(() => {
-             window.location.reload();
-            }, 2500);
+            
           });
 
 
-      })
-      .catch(error => console.log('error', error));
+     
+      
 
 
   }

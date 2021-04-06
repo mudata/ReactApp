@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect,useState } from "react";
 import logo from "../images/logo.svg";
 import { FaAlignRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -6,30 +6,43 @@ import { getCookie, removeCookie } from "../source";
 import { auth, firestore } from "../firebase";
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 
-export default class Navbar extends Component {
-
-  state = {
+const Navbar = () => {
+ let state = {
     isOpen: false,
     cookie: getCookie("cookie"),
     cookie2: getCookie("cookie2"),
   };
-
-  handleToggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-    console.log(this.state)
+  const [isOpen, setIsOpen] = useState("");
+  const [cookie, setCookie] = useState(getCookie("cookie"));
+  const [cookie2, setCookie2] = useState(getCookie("cookie2"));
+  const [cookie3, setCookie3] = useState(getCookie("cookie3"));
+  console.log(cookie);
+  console.log(cookie2)
+  useEffect(() => {
+    console.log("effect")
+    setCookie(getCookie("cookie"));
+    setCookie2(getCookie("cookie2"));
+    setCookie3(getCookie("cookie3"));
+  });
+  const  handleToggle = () => {
+    //setIsOpen()
+    //this.setState({ isOpen: !this.state.isOpen });
+    //console.log(this.state)
   };
- LogOut= () => {
+ const LogOut= () => {
     // let history = useHistory();
-    this.setState({ cookie: undefined });
-    this.setState({ cookie2: undefined });
+    // this.setState({ cookie: undefined });
+    // this.setState({ cookie2: undefined });
+    // this.state.cookie=undefined;
+    // this.state.cookie2=undefined;
+    
     auth.signOut().then(() => {
       ToastsStore.success("You have successfully Logged Out");
       removeCookie('cookie');
       removeCookie('cookie2');
       removeCookie('cookie3');
-      // setTimeout(() => {
-      // //window.location.reload(); 
-      // }, 2500);
+      setCookie(getCookie("cookie"));
+  setCookie2(getCookie("cookie2"));
       
     }).catch(() => {
       ToastsStore.error("cant log out")
@@ -38,25 +51,24 @@ export default class Navbar extends Component {
     
   }
 
-  render() {
     return (
       <nav className="navbar">
         <ToastsContainer store={ToastsStore} />
         <div className="nav-center">
           <div className="nav-header">
-            <Link to="/" onClick={this.handleToggle}>
+            <Link to="/" onClick={handleToggle()}>
               <img src={logo} alt="Beach Resort" />
             </Link>
             <button
               type="button"
               className="nav-btn"
-              onClick={this.handleToggle}
+              onClick={handleToggle()}
             >
               <FaAlignRight className="nav-icon" />
             </button>
           </div>
           <ul
-            className={this.state.isOpen ? "nav-links show-nav" : "nav-links"}
+            className={"nav-links show-nav"}
           >
             <li>
               <Link to="/">Home</Link>
@@ -67,30 +79,30 @@ export default class Navbar extends Component {
             <li>
               <Link to="/about">About</Link>
             </li>
-            {!this.state.cookie && (
+            {!cookie && (
               <li>
                 <Link to="/login">SignIn</Link>
               </li>
             )}
-            {!this.state.cookie && (
+            {!cookie && (
               <li>
                 <Link to="/register">SingUp</Link>
               </li>
             )}
-            {this.state.cookie && (
+            {cookie && (
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
             )}
-            {this.state.cookie2 === "admin" && (
+            {cookie2 === "admin" && (
               <li>
                 <Link to="/addRoom">Create Room</Link>
               </li>
             )}
-            {this.state.cookie && (
+            {cookie && (
               <li>
                 <Link to="/" onClick={
-                  this.LogOut
+                  LogOut
                 }>LogOut</Link>
               </li>
             )}
@@ -99,4 +111,5 @@ export default class Navbar extends Component {
       </nav>
     );
   }
-}
+
+  export default Navbar;

@@ -5,9 +5,8 @@ import Template2 from "../components/Template"
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { postRoom } from "../providers/fetchRooms"
+import { postRoom } from "../providers/fetchRooms";
 export default function AddRoom() {
-
     const firestore = firebase.firestore();
     let history = useHistory();
 
@@ -26,13 +25,15 @@ export default function AddRoom() {
     console.log(breakfast)
     const [error, setError] = useState(null);
     const Create = (event, name, breakfast, capacity, pets, price, size, slug, type, featured, description) => {
-        event.preventDefault()
+        event.preventDefault();
         const obj = Template2(name, breakfast, capacity, pets, price, size, slug, type, featured, description)
         postRoom(obj).then(result => {
+
             ToastsStore.success("You create Room");
             history.push("/");
+
             setTimeout(() => {
-                
+
                 window.location.reload();
             }, 2500);
         })
@@ -42,7 +43,7 @@ export default function AddRoom() {
                     window.location.reload();
                 }, 2500);
             });
-        
+
 
     };
 

@@ -29,16 +29,8 @@ export const postRoom = async (obj) => {
     fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}.json`, requestOptions)
       .then(response => response.text())
       .then(result => {
-        // ToastsStore.success("Hey, you delete this room ");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2500);
       })
       .catch(error => {
-        // ToastsStore.error(`error`)
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2500);
       });
   }
   export const remove= async (id2,user)=>{
@@ -53,19 +45,45 @@ export const postRoom = async (obj) => {
  await fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${id2}/fields/users/${user}.json`, requestOptions)
     .then(response => response.text())
     .then(result => {
-    //   ToastsStore.success("Hey, you remove this room from favorite");
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 2500);
     })
     .catch(error => {
-    //   ToastsStore.error(`error`)
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 2500);
-    // });
   
   });
+}
+export const getAll =async () =>{
+  
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+
+  
+    await fetch("https://reactapp-248b5-default-rtdb.firebaseio.com/rooms.json", requestOptions)
+    .then((response) => response.json()) //2
+    .then((result) => {
+      let arr=[];
+      for (const key in result) {
+        result[key].fields.id2=key
+        // console.log(result[key])
+        arr.push(result[key])
+      }
+      let rooms = this.formatData(arr);
+  // console.log(response.items)
+  let featuredRooms = rooms.filter(room => room.featured === true);
+  let maxPrice = Math.max(...rooms.map(item => item.price));
+  let maxSize = Math.max(...rooms.map(item => item.size));
+
+  this.setState({
+    rooms,
+    featuredRooms,
+    price: maxPrice,
+    maxPrice,
+    maxSize
+  });
+  
+    });
+
+  
 }
 
   

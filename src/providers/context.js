@@ -159,6 +159,7 @@ this.setState(
         value={{
           ...this.state,
           getRoom: this.getRoom,
+          getData: this.getData,
           handleChange: this.handleChange
         }}
       >

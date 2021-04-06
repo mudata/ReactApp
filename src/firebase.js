@@ -34,10 +34,6 @@ export const signInWithGoogle = () => {
       })
       setCookie('cookie', `${Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}`);
       setCookie('cookie3', `${result.user.uid}`);
-
-    setTimeout(() => {
-    window.location.reload();
-    }, 2500);
     
   }).catch(()=>{
     ToastsStore.error("Error signing up with password and email")
@@ -57,7 +53,7 @@ export const generateUserDocument = async (user, additionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { email, displayName, photoURL,rooms } = user;
+    const { email, displayName, photoURL } = user;
     console.log(user);
     console.log(additionalData)
     try {
@@ -65,7 +61,6 @@ export const generateUserDocument = async (user, additionalData) => {
         displayName,
         email,
         photoURL,
-        rooms,
         ...additionalData
       });
     } catch (error) {

@@ -12,23 +12,15 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState(null);
-  //const user = useContext(UserContext);
-  console.log(email)
-  console.log(password)
-  //console.log(user)
+
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
-
     event.preventDefault();
-    // try {
-      await auth.createUserWithEmailAndPassword(email, password).then((result) => {
-        console.log(result);
-        //console.log(user)
-        //generateUserDocument(user, { displayName, rooms });
-        ToastsStore.success("You have successfully Registered");
-        
-        generateUserDocument(result, { displayName });
 
+      await auth.createUserWithEmailAndPassword(email, password).then((result) => {
+        ToastsStore.success("You have successfully Registered");
+        generateUserDocument(result, { displayName });
         history.push("/login");
+
         }).catch((error)=>{
         ToastsStore.error("Error signing up with password and email")
           //  setError('Error Signing up with email and password');
@@ -38,7 +30,6 @@ const SignUp = () => {
     setEmail("");
     setPassword("");
     setDisplayName("");
-    //history.push("/login");
   };
 
   const onChangeHandler = event => {

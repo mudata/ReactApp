@@ -19,7 +19,6 @@ export default class SingleRoom extends Component {
     };
   }
   static contextType = RoomContext;
-  // static useContext = UserContext;
   isOnline = false;
 
 
@@ -28,24 +27,24 @@ export default class SingleRoom extends Component {
     const { getRoom, getData } = this.context;
     //room
     const room = getRoom(this.state.slug);
-   await deleteRoom(room).then(result => {
+    await deleteRoom(room).then(result => {
       ToastsStore.success("Hey, you delete this room ");
       console.log(getData())
-      getData().then(()=>{
+      getData().then(() => {
 
       })
-      
+
     })
       .catch(error => {
         ToastsStore.error(`error`)
-        
+
       });
-      
+
 
 
   }
   async RemoveFromFavorite() {
-    const { getRoom , getData } = this.context;
+    const { getRoom, getData } = this.context;
     //room
     const room = getRoom(this.state.slug);
     //user
@@ -53,21 +52,21 @@ export default class SingleRoom extends Component {
     remove(room.id2, user).then(result => {
       ToastsStore.success("Hey, you remove this room from favorite");
       console.log(getData())
-      getData().then(()=>{
+      getData().then(() => {
 
       })
-      
+
     })
       .catch(error => {
         ToastsStore.error(`error`)
-        
+
       });
 
 
   }
   async addToFavorite() {
 
-    const { getRoom , getData} = this.context;
+    const { getRoom, getData } = this.context;
     //room
     const room = getRoom(this.state.slug);
     console.log(room);
@@ -83,44 +82,44 @@ export default class SingleRoom extends Component {
 
 
 
-    
 
 
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify(obj);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-        var requestOptions = {
-          method: 'PATCH',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
-        };
+    var raw = JSON.stringify(obj);
 
-        fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user}.json`, requestOptions)
-          .then(response => response.text())
-          .then(result => {
-            console.log(result)
-            //componentDidMount()
-            ToastsStore.success("Hey, you just add this room to your favorites")
-            
-            console.log(getData())
-      getData().then(()=>{
+    var requestOptions = {
+      method: 'PATCH',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
+    fetch(`https://reactapp-248b5-default-rtdb.firebaseio.com/rooms/${room.id2}/fields/users/${user}.json`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        console.log(result)
+        //componentDidMount()
+        ToastsStore.success("Hey, you just add this room to your favorites")
+
+        console.log(getData())
+        getData().then(() => {
+
+        })
+
+        //
       })
+      .catch(error => {
+        console.log('error', error)
+        ToastsStore.error(`error`)
 
-            //
-          })
-          .catch(error => {
-            console.log('error', error)
-            ToastsStore.error(`error`)
-            
-          });
+      });
 
 
-     
-      
+
+
 
 
   }
@@ -153,8 +152,6 @@ export default class SingleRoom extends Component {
       pets,
       images
     } = room;
-    console.log(room)
-    console.log(extras)
     const [mainImg, ...defaultImg] = images;
     // const found = room.users.find(element => element.name === getCookie("cookie3"));
     let found = "";
@@ -162,14 +159,11 @@ export default class SingleRoom extends Component {
     for (const key in room.users) {
       if (Object.prototype.hasOwnProperty.call(room.users, key)) {
         const element = room.users[key];
-        console.log(element)
         if (element.name === getCookie("cookie3")) {
           found = element.name;
         }
       }
     }
-    console.log(getCookie("cookie3"))
-    console.log(found)
 
     return (
       <>

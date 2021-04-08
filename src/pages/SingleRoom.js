@@ -21,8 +21,6 @@ export default class SingleRoom extends Component {
   static contextType = RoomContext;
   isOnline = false;
 
-
-
   async DeleteRoom() {
     const { getRoom, getData } = this.context;
     //room

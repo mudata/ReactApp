@@ -38,8 +38,6 @@ export default class SingleRoom extends Component {
 
       });
 
-
-
   }
   async RemoveFromFavorite() {
     const { getRoom, getData } = this.context;
